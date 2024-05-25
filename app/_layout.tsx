@@ -73,6 +73,22 @@ export default function RootLayout() {
             // headerRight: () => <ThemeToggle />,
           }}
         />
+        <Stack.Screen
+          name="login"
+          options={{
+            title: "Salur",
+            headerShown: false,
+            // headerRight: () => <ThemeToggle />,
+          }}
+        />
+        <Stack.Screen
+          name="register"
+          options={{
+            title: "Salur",
+            headerShown: false,
+            // headerRight: () => <ThemeToggle />,
+          }}
+        />
       </Stack>
       <PortalHost />
     </ThemeProvider>
