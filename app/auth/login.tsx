@@ -13,10 +13,8 @@ export default function Screen() {
   const inputRef = React.useRef<TextInput>(null);
   const [err, setErr] = React.useState<string | null>(null);
 
-  const [email, setEmail] = React.useState<string>("");
   const [username, setUsername] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
-  const [confirmPassword, setConfirmPassword] = React.useState<string>("");
 
   function handleOnLabelPress() {
     if (!inputRef.current) {
@@ -27,13 +25,6 @@ export default function Screen() {
     } else {
       inputRef.current?.focus();
     }
-  }
-
-  function onChangeEmail(text: string) {
-    if (err) {
-      setErr(null);
-    }
-    setEmail(text);
   }
 
   function onChangeUsername(text: string) {
@@ -50,43 +41,17 @@ export default function Screen() {
     setPassword(text);
   }
 
-  function onChangeConfirmPassword(text: string) {
-    if (err) {
-      setErr(null);
-    }
-    setConfirmPassword(text);
-  }
-
   function onSubmitEditing() {
     setErr("Write more stuff to remove this error message.");
   }
 
   return (
-    <ScrollView contentContainerClassName="flex-1 justify-center items-center p-12">
-      <View className="web:max-w-xs w-full gap-5">
+    <ScrollView contentContainerClassName="flex-1 justify-center items-center">
+      <View className="web:max-w-xs w-full p-12 gap-6">
         <View className="flex flex-row justify-center items-center">
           <Image
-            source={require("../assets/images/icon.png")}
-            style={{ width: 180, height: 180 }}
-          />
-        </View>
-        <View>
-          <Label
-            className={cn(err && "text-destructive", "pb-2 native:pb-1 pl-0.5")}
-            nativeID="inputLabel"
-            onPress={handleOnLabelPress}
-          >
-            Email
-          </Label>
-          <Input
-            ref={inputRef}
-            placeholder="Email"
-            autoCapitalize="none"
-            value={email}
-            onChangeText={onChangeEmail}
-            onSubmitEditing={onSubmitEditing}
-            aria-labelledby="inputLabel"
-            aria-errormessage="inputError"
+            source={require("../../assets/images/icon.png")}
+            style={{ width: 240, height: 240 }}
           />
         </View>
         <View>
@@ -128,29 +93,14 @@ export default function Screen() {
             aria-errormessage="inputError"
           />
         </View>
-        <View>
-          <Label
-            className={cn(err && "text-destructive", "pb-2 native:pb-1 pl-0.5")}
-            nativeID="inputLabel"
-            onPress={handleOnLabelPress}
-          >
-            Confirm Password
-          </Label>
-          <Input
-            ref={inputRef}
-            placeholder="Confirm Password"
-            autoCapitalize="none"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={onChangeConfirmPassword}
-            onSubmitEditing={onSubmitEditing}
-            aria-labelledby="inputLabel"
-            aria-errormessage="inputError"
-          />
-        </View>
         {err && <ErrorMessage msg={err} />}
+        <Text className="text-sm text-gray-400 text-right">
+          Forgot Password?
+        </Text>
         <Button className="bg-blue-400">
-          <Text className="font-bold">Register</Text>
+          <Link href="/auth/successful">
+            <Text className="font-bold">Login</Text>
+          </Link>
         </Button>
         <View className="flex flex-row justify-between items-center w-full">
           <Separator className="w-1/3" />
@@ -162,15 +112,15 @@ export default function Screen() {
         <View className="flex flex-row justify-center items-center">
           <Button variant="outline">
             <Image
-              source={require("../assets/images/google.png")}
+              source={require("../../assets/images/google.png")}
               style={{ width: 24, height: 24 }}
             />
           </Button>
         </View>
         <Text className="text-center">
-          Already have an account?{" "}
-          <Link href="/login">
-            <Text className="font-bold">Login Now!</Text>
+          Don't have an account?{" "}
+          <Link href="/auth/register">
+            <Text className="font-bold">Register Now!</Text>
           </Link>
         </Text>
       </View>

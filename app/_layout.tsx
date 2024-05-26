@@ -74,17 +74,25 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="login"
+          name="auth/login"
           options={{
-            title: "Salur",
+            title: "Login",
             headerShown: false,
             // headerRight: () => <ThemeToggle />,
           }}
         />
         <Stack.Screen
-          name="register"
+          name="auth/register"
           options={{
-            title: "Salur",
+            title: "Register",
+            headerShown: false,
+            // headerRight: () => <ThemeToggle />,
+          }}
+        />
+        <Stack.Screen
+          name="auth/successful"
+          options={{
+            title: "Successful Login",
             headerShown: false,
             // headerRight: () => <ThemeToggle />,
           }}

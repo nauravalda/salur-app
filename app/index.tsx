@@ -9,12 +9,12 @@ export default function Screen() {
     <View className="flex-1 justify-center items-center gap-5 p-6 bg-secondary/30">
       <Text className="text-center text-2xl font-bold">Hello, world!</Text>
       <Button>
-        <Link href="/login">
+        <Link href="/auth/login">
           <Text className="text-center text-lg font-bold">Login Page</Text>
         </Link>
       </Button>
       <Button>
-        <Link href="/register">
+        <Link href="/auth/register">
           <Text className="text-center text-lg font-bold">Register Page</Text>
         </Link>
       </Button>
