@@ -82,6 +82,14 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
+          name="purchase"
+          options={{
+            title: "Complete Purchase",
+            headerShown: true,
+            // headerRight: () => <ThemeToggle />,
+          }}
+        />
+        <Stack.Screen
           name="auth/login"
           options={{
             title: "Login",
