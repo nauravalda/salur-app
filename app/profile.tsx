@@ -3,35 +3,63 @@ import { Image, ScrollView, View } from "react-native";
 import { Link } from "expo-router";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
-import { Star } from "lucide-react-native";
+import { PencilIcon, Star } from "lucide-react-native";
 
 export default function Screen() {
   return (
-    <ScrollView contentContainerClassName="flex-1 justify-center items-center gap-5 p-6 bg-secondary/30">
+    <ScrollView contentContainerClassName="flex-1 items-center gap-5 mt-12 p-6 bg-secondary/30">
+      {/* Profile */}
       <View className="flex flex-col items-center gap-2">
         <Image
           source={require("../assets/images/profile.png")}
           style={{ width: 120, height: 120 }}
         />
-        <View className="flex flex-row justify-center items-center bg-red-500 py-2 px-4 gap-12 rounded-full">
-          <Star size={24} className="text-foreground" />
-          <Text className="text-center text-white text-lg font-bold">
-            Warrior
+        <View className="flex flex-row justify-between items-center bg-[#D92F2F] px-3 py-2 gap-4 rounded-full">
+          <Star size={24} fill="white" color="none" />
+          <Text className="text-center text-white font-bold">Warrior</Text>
+          <Star disabled size={24} color="none" />
+        </View>
+        <View className="flex flex-row justify-between items-center gap-5">
+          <View aria-disabled className="bg-none p-2 rounded-full">
+            <PencilIcon disabled size={16} color="none" />
+          </View>
+          <Text className="font-bold text-center">claraafs</Text>
+          <View className="bg-[#D92F2F] p-2 rounded-full">
+            <PencilIcon size={16} color="white" />
+          </View>
+        </View>
+
+        <View className="flex flex-col">
+          <Text className="text-center text-sm text-gray-400">
+            claraafs@gemastik.com
           </Text>
-          {/* <Star size={24} className="text-foreground" /> */}
+          <Text className="text-center text-sm text-gray-400">081234567</Text>
         </View>
       </View>
 
       <View>
-        <Text className="text-center text-2xl font-bold">
-          This is Contribution Section
-        </Text>
-      </View>
+        <View className="border-gray-400 rounded-md border">
+          <View className="bg-red-300 rounded-md p-3">
+            <Text className="text-left font-bold text-black min-w-full">
+              Dampak yang telah kamu buat
+            </Text>
+          </View>
 
-      <View>
-        <Text className="text-center text-2xl font-bold">
-          This is Menu Section
-        </Text>
+          <View className="flex flex-col gap-2 px-3 pt-2 pb-3">
+            <Text className="text-left text-gray-400 font-medium min-w-full">
+              Kamu telah menyelamatkan{" "}
+              <Text className="font-bold text-red-700">12 makanan</Text>
+            </Text>
+            <Text className="text-left text-gray-400 font-medium min-w-full">
+              Kamu menghemat{" "}
+              <Text className="font-bold text-red-700">Rp131.500</Text>
+            </Text>
+            <Text className="text-left text-gray-400 font-medium min-w-full">
+              Kamu mengurangi{" "}
+              <Text className="font-bold text-red-700">2.1 kgCo</Text>
+            </Text>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );

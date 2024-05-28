@@ -68,7 +68,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="index"
           options={{
-            title: "Salur",
+            title: "Home",
             headerShown: false,
             // headerRight: () => <ThemeToggle />,
           }}
@@ -77,7 +77,15 @@ export default function RootLayout() {
           name="profile"
           options={{
             title: "Profile",
-            headerShown: false,
+            headerShown: true,
+            // headerRight: () => <ThemeToggle />,
+          }}
+        />
+        <Stack.Screen
+          name="purchase"
+          options={{
+            title: "Purchase",
+            headerShown: true,
             // headerRight: () => <ThemeToggle />,
           }}
         />
