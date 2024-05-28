@@ -74,6 +74,14 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            headerShown: false,
+            // headerRight: () => <ThemeToggle />,
+          }}
+        />
+        <Stack.Screen
           name="auth/login"
           options={{
             title: "Login",

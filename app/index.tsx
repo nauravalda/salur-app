@@ -18,6 +18,11 @@ export default function Screen() {
           <Text className="text-center text-lg font-bold">Register Page</Text>
         </Link>
       </Button>
+      <Button>
+        <Link href="/profile">
+          <Text className="text-center text-lg font-bold">Profile Page</Text>
+        </Link>
+      </Button>
     </View>
   );
 }
