@@ -7,7 +7,7 @@ import { PencilIcon, Star } from "lucide-react-native";
 
 export default function Screen() {
   return (
-    <ScrollView contentContainerClassName="flex-1 items-center gap-5 mt-12 p-6 bg-secondary/30">
+    <View className="flex-1 items-center gap-5 mt-12 p-6">
       {/* Profile */}
       <View className="flex flex-col items-center gap-2">
         <Image
@@ -61,6 +61,6 @@ export default function Screen() {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
