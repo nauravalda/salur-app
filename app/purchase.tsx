@@ -9,13 +9,32 @@ import { Separator } from "~/components/ui/separator";
 import { Text } from "~/components/ui/text";
 import { Label } from "~/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog";
 
 export default function Screen() {
   const [payment, setPayment] = React.useState("OVO");
+  const [address, setAddress] = React.useState("Jl. Sukahaji Baru No.18");
+  const [orderMethod, setOrderMethod] = React.useState("Gojek");
 
   function onLabelPress(label: string) {
     return () => {
       setPayment(label);
+    };
+  }
+
+  function onButtonPress(label: string) {
+    return () => {
+      setOrderMethod(label);
     };
   }
 
@@ -38,6 +57,10 @@ export default function Screen() {
     },
   ];
 
+  function onChangeAddress(text: string) {
+    setAddress(text);
+  }
+
   return (
     <View className="flex-1">
       <ScrollView contentContainerClassName="flex-grow w-full items-center gap-2 bg-[#EEEEEE]">
@@ -49,16 +72,37 @@ export default function Screen() {
               <Text className="text-lg text-[#747474] font-bold">
                 Dikirim ke
               </Text>
-              <Text className="text-lg font-bold">Jl. Sukahaji Baru No.18</Text>
+              <Text className="text-lg font-bold">{address}</Text>
             </View>
-
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-red-600 bg-none rounded-full"
-            >
-              <Text className="text-red-600 font-bold">Ubah Alamat</Text>
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-red-600 bg-none rounded-full"
+                >
+                  <Text className="text-red-600 font-bold">Ubah Alamat</Text>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="w-[90vw]">
+                <DialogHeader>
+                  <DialogTitle className="font-bold">Ubah Alamat</DialogTitle>
+                </DialogHeader>
+                <Input
+                  placeholder={address}
+                  style={{
+                    // width: "90%",
+                    // borderWidth: 0,
+                    fontSize: 14,
+                    overflow: "scroll",
+                    // fontWeight: "600",
+                    // padding: 0,
+                    // maxHeight: 25,
+                  }}
+                  onChangeText={onChangeAddress}
+                />
+              </DialogContent>
+            </Dialog>
           </View>
 
           {/* Detail Alamat */}
@@ -101,7 +145,60 @@ export default function Screen() {
               Metode Pengiriman
             </Text>
 
-            <ChevronRight size={26} color="#747474" className="font-bold" />
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="link"
+                  size="sm"
+                  className="border-none bg-none ring-none"
+                >
+                  <ChevronRight
+                    size={26}
+                    color="#747474"
+                    className="font-bold"
+                  />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="w-[90vw]">
+                <DialogHeader>
+                  <DialogTitle className="font-bold">
+                    Metode Pengiriman
+                  </DialogTitle>
+                  <DialogDescription>
+                    <Text className="text-sm">
+                      Pilih metode pengiriman yang diinginkan
+                    </Text>
+                  </DialogDescription>
+                </DialogHeader>
+
+                <RadioGroup
+                  value={orderMethod}
+                  onValueChange={setOrderMethod}
+                  className="gap-3"
+                >
+                  <RadioGroupItemWithButton
+                    value="Gojek"
+                    onButtonPress={onButtonPress("Gojek")}
+                  />
+                  <RadioGroupItemWithButton
+                    value="Grab"
+                    onButtonPress={onButtonPress("Grab")}
+                  />
+                  <RadioGroupItemWithButton
+                    value="Sicepat"
+                    onButtonPress={onButtonPress("Sicepat")}
+                  />
+                </RadioGroup>
+
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button className="rounded-full bg-[#D92F2F]">
+                      <Text className="text-white font-bold">Simpan</Text>
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </View>
         </View>
 
@@ -120,11 +217,8 @@ export default function Screen() {
                   source={require("../assets/images/food.png")}
                   style={{ width: 64, height: 64 }}
                 />
-                <View className="flex flex-col justify-between gap-2 max-w-[50%]">
-                  <Badge
-                    variant="outline"
-                    className="rounded-md min-w-[60%] max-w-[60%]"
-                  >
+                <View className="flex flex-col justify-between gap-1 max-w-[50%] flex-grow">
+                  <Badge variant="outline" className="rounded-md max-w-[60%]">
                     <Text
                       className={
                         item.available ? "text-turquoise-600" : "text-red-600"
@@ -140,8 +234,43 @@ export default function Screen() {
                 </View>
               </View>
               <View className="flex flex-col justify-between items-end">
-                <Text className="font-bold">Rp3.000</Text>
-                <Text className="text-turquoise-700">Edit Item</Text>
+                <Text className="font-bold">
+                  Rp
+                  {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                </Text>
+                <View className="flex flex-row gap-2 items-center justify-end">
+                  <Text className="text-red-600 text-sm">Delete</Text>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Text className="text-turquoise-700 text-sm">
+                        Edit Item
+                      </Text>
+                    </DialogTrigger>
+                    <DialogContent className="w-[90vw]">
+                      <DialogHeader>
+                        <DialogTitle className="font-bold">
+                          Edit Item
+                        </DialogTitle>
+                        <DialogDescription>Ubah jumlah item</DialogDescription>
+                      </DialogHeader>
+                      <Input
+                        placeholder={String(item.amount)}
+                        onChangeText={(e) => {
+                          item.amount = Number(e);
+                        }}
+                        style={{
+                          // width: "90%",
+                          // borderWidth: 0,
+                          fontSize: 14,
+                          overflow: "scroll",
+                          // fontWeight: "600",
+                          // padding: 0,
+                          // maxHeight: 25,
+                        }}
+                      />
+                    </DialogContent>
+                  </Dialog>
+                </View>
               </View>
             </View>
           ))}
@@ -232,6 +361,30 @@ function RadioGroupItemWithLabel({
       <Label nativeID={`label-for-${value}`} onPress={onLabelPress}>
         {value}
       </Label>
+    </View>
+  );
+}
+
+function RadioGroupItemWithButton({
+  value,
+  onButtonPress,
+}: {
+  value: string;
+  onButtonPress: () => void;
+}) {
+  return (
+    <View className={"flex-row gap-2 items-center"}>
+      <RadioGroupItem aria-labelledby={`label-for-${value}`} value={value} />
+      <View
+        nativeID={`label-for-${value}`}
+        className="flex flex-row flex-grow justify-between items-center border border-muted-foreground rounded-lg py-4 px-6"
+      >
+        <Text className="text-sm text-muted-foreground font-bold">{value}</Text>
+
+        <Text className="text-sm text-muted-foreground font-bold">
+          12.000 - 26.000
+        </Text>
+      </View>
     </View>
   );
 }
