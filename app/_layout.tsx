@@ -86,6 +86,7 @@ export default function RootLayout() {
           options={{
             title: "Complete Purchase",
             headerShown: true,
+            headerBackground: () => null,
             // headerRight: () => <ThemeToggle />,
           }}
         />
