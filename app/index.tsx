@@ -28,6 +28,16 @@ export default function Screen() {
           <Text className="text-center text-lg font-bold">Purchase Page</Text>
         </Link>
       </Button>
+      <Button>
+        <Link href="/nearby">
+          <Text className="text-center text-lg font-bold">Nearby Page</Text>
+        </Link>
+      </Button>
+      <Button>
+        <Link href="/home">
+          <Text className="text-center text-lg font-bold">Home Page</Text>
+        </Link>
+      </Button>
     </ScrollView>
   );
 }

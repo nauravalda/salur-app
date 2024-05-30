@@ -1,7 +1,8 @@
 import "~/global.css";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Theme, ThemeProvider } from "@react-navigation/native";
+import { NavigationContainer, Theme, ThemeProvider } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
@@ -10,7 +11,7 @@ import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "~/components/primitives/portal";
 import { ThemeToggle } from "~/components/ThemeToggle";
-
+const Tab = createBottomTabNavigator();
 const LIGHT_THEME: Theme = {
   dark: false,
   colors: NAV_THEME.light,
@@ -114,6 +115,11 @@ export default function RootLayout() {
           }}
         />
       </Stack>
+      {/* <NavigationContainer>
+        <Tab.Navigator>
+          
+        </Tab.Navigator>
+      </NavigationContainer> */}
       <PortalHost />
     </ThemeProvider>
   );
