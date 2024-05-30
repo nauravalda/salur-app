@@ -1,8 +1,6 @@
-// App.tsx (or RootLayout.tsx)
 import "~/global.css";
 
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Platform } from "react-native";
@@ -46,6 +44,11 @@ function HomeStack() {
         name="ProductDetails"
         component={ProductDetailsScreen as any}
         options={{ title: "Product Details" }}
+      />
+      <Stack.Screen
+        name="PurchasePage"
+        component={PurchaseScreen} // Add PurchaseScreen component here
+        options={{ title: "Purchase" }} // Add any options you need
       />
       <Stack.Screen
         name="Nearby"

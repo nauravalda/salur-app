@@ -6,6 +6,7 @@ import { Utensils, Search } from "lucide-react-native";
 import ItemCard from "~/components/ui/itemcard";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import { MapPin } from "lucide-react-native";
 
 type RootStackParamList = {
   Home: undefined;
@@ -27,14 +28,14 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<
   "Home"
 >;
 
-const exampleItem = {
-  imageSource: { uri: "https://example.com/image.jpg" },
-  title: "Sample Item",
-  distance: "5 km",
-  price: 100,
-  discountedPrice: 80,
-  status: "Available",
-};
+// const exampleItem = {
+//   imageSource: { uri: "https://example.com/image.jpg" },
+//   title: "Sample Item",
+//   distance: "5 km",
+//   price: 100,
+//   discountedPrice: 80,
+//   status: "Available",
+// };
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
@@ -43,9 +44,9 @@ const HomeScreen: React.FC = () => {
     setSearch(text);
   };
 
-  const handleCardPress = () => {
-    navigation.navigate("ProductDetails", exampleItem);
-  };
+  // const handleCardPress = () => {
+  //   navigation.navigate("ProductDetails", exampleItem);
+  // };
 
   const handleNavigateToNearby = () => {
     navigation.navigate("Nearby");
@@ -61,6 +62,29 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View className="flex-1 gap-5 p-6">
+      <View className="flex flex-row items-center justify-start px-2 border border-[#747474] rounded-full">
+        <MapPin
+          size={20}
+          color="#747474"
+          className="rounded-md max-h-[30%] border-[0.75px] border-[#747474] px-3 items-center py-1 native:text-xs text-xs font-medium"
+        />
+        <Input
+          placeholder="Jl. Sukahaji Baru No.18"
+          style={{
+            width: "90%",
+            borderWidth: 0,
+            fontSize: 11,
+            overflow: "scroll",
+            fontWeight: "600",
+            padding: 0,
+            maxHeight: 25,
+          }}
+        />
+      </View>
+      <Image
+        source={require("../assets/images/carousel.png")}
+        className="w-full h-40"
+      />
       <View className="flex flex-row items-center justify-center px-4 bg-white border border-[#747474] rounded-full">
         <Utensils size={20} color="#CF2B2A" />
         <Input
@@ -79,37 +103,34 @@ const HomeScreen: React.FC = () => {
       <View className="flex flex-row justify-around my-4">
         <TouchableOpacity
           onPress={handleNavigateToNearby}
-          className="items-center"
-        >
+          className="items-center">
           <Image
             source={require("../assets/images/sekitarmu.png")}
-            className="w-16 h-16"
+            className="w-20 h-20"
           />
           <Text>Nearby</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleNavigateToPromos}
-          className="items-center"
-        >
+          className="items-center">
           <Image
             source={require("../assets/images/promo.png")}
-            className="w-16 h-16"
+            className="w-20 h-20"
           />
           <Text>Promos</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleNavigateToBestSeller}
-          className="items-center"
-        >
+          className="items-center">
           <Image
             source={require("../assets/images/terlaris.png")}
-            className="w-16 h-16"
+            className="w-20 h-20"
           />
           <Text>Best Sellers</Text>
         </TouchableOpacity>
       </View>
-
-      <ItemCard {...exampleItem} onPress={handleCardPress} />
+      {/* 
+      <ItemCard {...exampleItem} onPress={handleCardPress} /> */}
       <FoodCategoryList />
     </View>
   );

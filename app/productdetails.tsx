@@ -1,15 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Modal,
-  TextInput,
-} from "react-native";
-import { Plus, Minus } from "lucide-react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { View, Text, Image, TouchableOpacity, Modal, TextInput } from "react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import { Minus, Plus } from "lucide-react-native";
 
 type RootStackParamList = {
   Home: undefined;
@@ -21,17 +14,18 @@ type RootStackParamList = {
     discountedPrice: number;
     status: string;
   };
+  PurchasePage: {
+    imageSource: { uri: string };
+    title: string;
+    price: number;
+    quantity: number;
+  };
 };
 
-type ProductDetailsScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  "ProductDetails"
->;
+type ProductDetailsNavigationProp = NativeStackNavigationProp<RootStackParamList, "ProductDetails">;
 
-const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
-  route,
-}) => {
-  const navigation = useNavigation<ProductDetailsScreenProps>();
+export default function ProductDetailsScreen({ route }: { route: { params: { imageSource: { uri: string }; title: string; price: number; discountedPrice: number; status: string } } }) {
+  const navigation = useNavigation<ProductDetailsNavigationProp>();
   const { imageSource, title, price, discountedPrice, status } = route.params;
 
   const [quantity, setQuantity] = useState(1);
@@ -58,8 +52,13 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
   };
 
   const handleAddToCartConfirm = () => {
-    // Handle adding to cart logic here
-    console.log(`Adding ${quantity} items with notes: ${notes}`);
+    console.log("Add to cart", quantity, notes, price, discountedPrice, title);
+    navigation.navigate("PurchasePage", {
+      imageSource,
+      title,
+      price,
+      quantity,
+    });
     handleCloseModal();
   };
 
@@ -88,8 +87,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
           <TouchableOpacity
             onPress={handleAddToCart}
             className="bg-red-600 rounded-lg py-3"
-            activeOpacity={0.7}
-          >
+            activeOpacity={0.7}>
             <Text className="text-white text-center font-semibold">
               Tambah ke keranjang
             </Text>
@@ -106,16 +104,14 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
                 <TouchableOpacity
                   onPress={handleDecrement}
                   className="bg-gray-200 rounded-full p-2"
-                  activeOpacity={0.7}
-                >
+                  activeOpacity={0.7}>
                   <Minus size={24} color="#333" />
                 </TouchableOpacity>
                 <Text className="text-2xl font-bold mx-4">{quantity}</Text>
                 <TouchableOpacity
                   onPress={handleIncrement}
                   className="bg-gray-200 rounded-full p-2"
-                  activeOpacity={0.7}
-                >
+                  activeOpacity={0.7}>
                   <Plus size={24} color="#333" />
                 </TouchableOpacity>
               </View>
@@ -130,8 +126,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
             <TouchableOpacity
               onPress={handleAddToCartConfirm}
               className="bg-red-600 rounded-lg py-3"
-              activeOpacity={0.7}
-            >
+              activeOpacity={0.7}>
               <Text className="text-white text-center font-semibold">
                 Tambahkan ({quantity} item)
               </Text>
@@ -141,6 +136,4 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
       </Modal>
     </View>
   );
-};
-
-export default ProductDetailsScreen;
+}
