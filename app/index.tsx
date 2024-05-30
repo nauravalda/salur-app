@@ -43,6 +43,11 @@ export default function Screen() {
           <Text className="text-center text-lg font-bold">Refrigerator Page</Text>
         </Link>
       </Button>
+      <Button>
+        <Link href="/productdetails">
+          <Text className="text-center text-lg font-bold">Product Details Page</Text>
+        </Link>
+      </Button>
     </ScrollView>
   );
 }
