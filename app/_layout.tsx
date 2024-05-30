@@ -41,14 +41,10 @@ const Stack = createNativeStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} options={{}} />
       <Stack.Screen
         name="ProductDetails"
-        component={ProductDetailsScreen}
+        component={ProductDetailsScreen as any}
         options={{ title: "Product Details" }}
       />
       <Stack.Screen
@@ -100,43 +96,50 @@ export default function RootLayout() {
   }
 
   return (
-      <Tab.Navigator initialRouteName="home">
-        <Tab.Screen
-          name="home"
-          component={HomeStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Compass size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="refrigerator"
-          component={RefrigeratorScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Refrigerator size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="profile"
-          component={ProfileScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <UserCircle size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="purchase"
-          component={PurchaseScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <ReceiptText size={size} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+    <Tab.Navigator initialRouteName="home">
+      <Tab.Screen
+        name="home"
+        component={HomeStack}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Compass size={size} color={color} />
+          ),
+          tabBarLabel: "Home",
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="refrigerator"
+        component={RefrigeratorScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Refrigerator size={size} color={color} />
+          ),
+          tabBarLabel: "Kulkasku",
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <UserCircle size={size} color={color} />
+          ),
+          tabBarLabel: "Profile",
+          headerShown: false,
+        }}
+      />
+      {/* <Tab.Screen
+        name="purchase"
+        component={PurchaseScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <ReceiptText size={size} color={color} />
+          ),
+          headerShown: false,
+        }}
+      /> */}
+    </Tab.Navigator>
   );
 }

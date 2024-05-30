@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Plus, Minus } from "lucide-react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
 type RootStackParamList = {
   Home: undefined;
@@ -30,6 +31,7 @@ type ProductDetailsScreenProps = NativeStackScreenProps<
 const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
   route,
 }) => {
+  const navigation = useNavigation<ProductDetailsScreenProps>();
   const { imageSource, title, price, discountedPrice, status } = route.params;
 
   const [quantity, setQuantity] = useState(1);
@@ -86,7 +88,8 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
           <TouchableOpacity
             onPress={handleAddToCart}
             className="bg-red-600 rounded-lg py-3"
-            activeOpacity={0.7}>
+            activeOpacity={0.7}
+          >
             <Text className="text-white text-center font-semibold">
               Tambah ke keranjang
             </Text>
@@ -103,14 +106,16 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
                 <TouchableOpacity
                   onPress={handleDecrement}
                   className="bg-gray-200 rounded-full p-2"
-                  activeOpacity={0.7}>
+                  activeOpacity={0.7}
+                >
                   <Minus size={24} color="#333" />
                 </TouchableOpacity>
                 <Text className="text-2xl font-bold mx-4">{quantity}</Text>
                 <TouchableOpacity
                   onPress={handleIncrement}
                   className="bg-gray-200 rounded-full p-2"
-                  activeOpacity={0.7}>
+                  activeOpacity={0.7}
+                >
                   <Plus size={24} color="#333" />
                 </TouchableOpacity>
               </View>
@@ -125,7 +130,8 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
             <TouchableOpacity
               onPress={handleAddToCartConfirm}
               className="bg-red-600 rounded-lg py-3"
-              activeOpacity={0.7}>
+              activeOpacity={0.7}
+            >
               <Text className="text-white text-center font-semibold">
                 Tambahkan ({quantity} item)
               </Text>

@@ -60,14 +60,18 @@ const HomeScreen: React.FC = () => {
   };
 
   return (
-    <View>
-      <View className="bg-white pt-1 pb-1 gap-2 flex flex-row items-center justify-start px-2 border border-[#747474] rounded-full">
-        <Utensils size={15} color="#CF2B2A" />
+    <View className="flex-1 gap-5 p-6">
+      <View className="flex flex-row items-center justify-center px-4 bg-white border border-[#747474] rounded-full">
+        <Utensils size={20} color="#CF2B2A" />
         <Input
           placeholder="Mau selamatkan makanan apa hari ini?"
-          value={search}
-          onChangeText={handleSearch}
-          style={{ borderWidth: 0, padding: 0 }}
+          style={{
+            width: "90%",
+            borderWidth: 0,
+            fontSize: 14,
+            overflow: "scroll",
+            padding: 0,
+          }}
         />
         <Search size={20} color="#747474" />
       </View>
@@ -75,7 +79,8 @@ const HomeScreen: React.FC = () => {
       <View className="flex flex-row justify-around my-4">
         <TouchableOpacity
           onPress={handleNavigateToNearby}
-          className="items-center">
+          className="items-center"
+        >
           <Image
             source={require("../assets/images/sekitarmu.png")}
             className="w-16 h-16"
@@ -84,7 +89,8 @@ const HomeScreen: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleNavigateToPromos}
-          className="items-center">
+          className="items-center"
+        >
           <Image
             source={require("../assets/images/promo.png")}
             className="w-16 h-16"
@@ -93,7 +99,8 @@ const HomeScreen: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleNavigateToBestSeller}
-          className="items-center">
+          className="items-center"
+        >
           <Image
             source={require("../assets/images/terlaris.png")}
             className="w-16 h-16"
