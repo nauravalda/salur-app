@@ -24,7 +24,8 @@ const FridgeCard: React.FC<FridgeCardProps> = ({ title, date, imageSource }) => 
   const navigation = useNavigation<FridgeDetailsNavigationProp>();
 
   const handlePress = () => {
-    navigation.navigate("FridgeDetails", { title, date, imageSource });
+    console.log(`Navigating to FridgeDetails: ${title}`)
+    // navigation.navigate("FridgeDetails", { title, date, imageSource });
   };
 
   return (

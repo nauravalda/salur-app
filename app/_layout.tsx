@@ -11,7 +11,12 @@ import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "~/components/primitives/portal";
 import { ThemeToggle } from "~/components/ThemeToggle";
-const Tab = createBottomTabNavigator();
+import {
+  Refrigerator,
+  Compass,
+  ReceiptText,
+  UserCircle,
+} from "lucide-react-native";
 const LIGHT_THEME: Theme = {
   dark: false,
   colors: NAV_THEME.light,
@@ -28,6 +33,18 @@ export {
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
 SplashScreen.preventAutoHideAsync();
+
+import HomeScreen from "./home";
+import ProfileScreen from "./profile";
+import RefrigeratorScreen from "./refrigerator";
+import PurchaseScreen from "./purchase";
+
+const homeName = "Home";
+const profileName = "Akun";
+const refrigeratorName = "Kulkasku";
+const purchaseName = "Pesanan Saya";
+
+const Tab = createBottomTabNavigator();
 
 export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
@@ -63,59 +80,105 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: "Home",
-            headerShown: false,
-            // headerRight: () => <ThemeToggle />,
-          }}
-        />
-        <Stack.Screen
-          name="profile"
-          options={{
-            title: "Profile",
-            headerShown: true,
-            // headerRight: () => <ThemeToggle />,
-          }}
-        />
-        <Stack.Screen
-          name="purchase"
-          options={{
-            title: "Complete Purchase",
-            headerShown: true,
-            // headerRight: () => <ThemeToggle />,
-          }}
-        />
-        <Stack.Screen
-          name="auth/login"
-          options={{
-            title: "Login",
-            headerShown: false,
-            // headerRight: () => <ThemeToggle />,
-          }}
-        />
-        <Stack.Screen
-          name="auth/register"
-          options={{
-            title: "Register",
-            headerShown: false,
-            // headerRight: () => <ThemeToggle />,
-          }}
-        />
-        <Stack.Screen
-          name="auth/successful"
-          options={{
-            title: "Successful Login",
-            headerShown: false,
-            // headerRight: () => <ThemeToggle />,
-          }}
-        />
-      </Stack>
-      <PortalHost />
-    </ThemeProvider>
+    <Tab.Navigator initialRouteName="home">
+      <Tab.Screen
+        name="home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Compass size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="refrigerator"
+        component={RefrigeratorScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Refrigerator size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <UserCircle size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="purchase"
+        component={PurchaseScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <ReceiptText size={size} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+    // <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+    //   <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+    //   <Stack>
+    //     <Stack.Screen
+    //       name="index"
+    //       options={{
+    //         title: "Home",
+    //         headerShown: false,
+    //         // headerRight: () => <ThemeToggle />,
+    //       }}
+    //     />
+    //     <Stack.Screen
+    //       name="profile"
+    //       options={{
+    //         title: "Profile",
+    //         headerShown: true,
+    //         // headerRight: () => <ThemeToggle />,
+    //       }}
+    //     />
+    //     <Stack.Screen
+    //       name="purchase"
+    //       options={{
+    //         title: "Complete Purchase",
+    //         headerShown: true,
+    //         // headerRight: () => <ThemeToggle />,
+    //       }}
+    //     />
+    //     <Stack.Screen
+    //       name="auth/login"
+    //       options={{
+    //         title: "Login",
+    //         headerShown: false,
+    //         // headerRight: () => <ThemeToggle />,
+    //       }}
+    //     />
+    //     <Stack.Screen
+    //       name="auth/register"
+    //       options={{
+    //         title: "Register",
+    //         headerShown: false,
+    //         // headerRight: () => <ThemeToggle />,
+    //       }}
+    //     />
+    //     <Stack.Screen
+    //       name="auth/successful"
+    //       options={{
+    //         title: "Successful Login",
+    //         headerShown: false,
+    //         // headerRight: () => <ThemeToggle />,
+    //       }}
+    //     />
+    //     <Stack.Screen
+    //       name="auth/home"
+    //       options={{
+    //         title: "Home",
+    //         headerShown: false,
+    //         // headerRight: () => <ThemeToggle />,
+    //       }}
+    //     />
+    //   </Stack>
+    //   <PortalHost />
+    // </ThemeProvider>
   );
 }

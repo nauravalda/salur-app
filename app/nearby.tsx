@@ -3,11 +3,13 @@ import { View,Text,ScrollView,Image,StyleSheet,Dimensions } from 'react-native';
 import { Stack } from 'expo-router';
 import ItemCard from '~/components/ui/itemcard';
 import Animated,{ useAnimatedRef, useAnimatedStyle, useScrollViewOffset, interpolate } from 'react-native-reanimated';
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+
 
 const { width } = Dimensions.get("window");
 const IMG_HEIGHT = 286;
 
-export default function Screen() {
+export default function NearbyScreen() {
     const scrollRef = useAnimatedRef<Animated.ScrollView>();
     const scrollOfset = useScrollViewOffset(scrollRef);
 
