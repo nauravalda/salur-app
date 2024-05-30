@@ -23,7 +23,7 @@ const IMG_HEIGHT = 286;
 
 const foodAndBeverages = [
   {
-    imageSource: { uri: "https://example.com/food1.jpg" },
+    imageSource: { uri: "https://i.imgur.com/alpENn6.jpg" },
     title: "Nasi Goreng",
     distance: "2 km",
     price: 35000, // Rp 35,000
@@ -31,7 +31,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food2.jpg" },
+    imageSource: { uri: "https://i.imgur.com/mwDTf48.jpg" },
     title: "Sate Ayam",
     distance: "3.5 km",
     price: 25000, // Rp 25,000
@@ -39,7 +39,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food3.jpg" },
+    imageSource: { uri: "https://i.imgur.com/2Ktrvoo.jpg" },
     title: "Gado-Gado",
     distance: "1 km",
     price: 30000, // Rp 30,000
@@ -47,7 +47,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food4.jpg" },
+    imageSource: { uri: "https://i.imgur.com/VMVK7k0.jpg" },
     title: "Mie Ayam",
     distance: "4 km",
     price: 20000, // Rp 20,000
@@ -55,7 +55,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food5.jpg" },
+    imageSource: { uri: "https://i.imgur.com/rYiDfor.jpg" },
     title: "Nasi Padang",
     distance: "2.5 km",
     price: 40000, // Rp 40,000
@@ -63,7 +63,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink1.jpg" },
+    imageSource: { uri: "https://i.imgur.com/XFS5UCM.jpg" },
     title: "Es Teh",
     distance: "1.5 km",
     price: 10000, // Rp 10,000
@@ -71,7 +71,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink2.jpg" },
+    imageSource: { uri: "https://i.imgur.com/MwnpRqb.jpg" },
     title: "Es Jeruk",
     distance: "2 km",
     price: 12000, // Rp 12,000
@@ -79,7 +79,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink3.jpg" },
+    imageSource: { uri: "https://i.imgur.com/jldb7G3.jpg" },
     title: "Es Campur",
     distance: "3 km",
     price: 15000, // Rp 15,000
@@ -87,7 +87,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink4.jpg" },
+    imageSource: { uri: "https://i.imgur.com/achg0Bj.jpg" },
     title: "Jus Alpukat",
     distance: "4.5 km",
     price: 18000, // Rp 18,000
@@ -95,7 +95,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink5.jpg" },
+    imageSource: { uri: "https://i.imgur.com/GX03j85.jpg" },
     title: "Es Kopi",
     distance: "3.5 km",
     price: 13000, // Rp 13,000

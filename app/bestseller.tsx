@@ -23,7 +23,7 @@ const IMG_HEIGHT = 286;
 
 const foodAndBeverages = [
   {
-    imageSource: { uri: "https://example.com/food11.jpg" },
+    imageSource: { uri: "https://i.imgur.com/DEsk1Is.jpeg" },
     title: "Sushi",
     distance: "2.7 km",
     price: 45000, // Rp 45,000
@@ -31,7 +31,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food12.jpg" },
+    imageSource: { uri: "https://i.imgur.com/9MZVHIx.jpeg" },
     title: "Pizza",
     distance: "3.5 km",
     price: 35000, // Rp 35,000
@@ -39,7 +39,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food13.jpg" },
+    imageSource: { uri: "https://i.imgur.com/2ACdlbK.jpeg" },
     title: "Burger",
     distance: "1.8 km",
     price: 25000, // Rp 25,000
@@ -47,7 +47,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food14.jpg" },
+    imageSource: { uri: "https://i.imgur.com/FyiwZ76.png" },
     title: "Tacos",
     distance: "2.5 km",
     price: 30000, // Rp 30,000
@@ -55,7 +55,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food15.jpg" },
+    imageSource: { uri: "https://i.imgur.com/GQrSjY7.jpeg" },
     title: "Kebab",
     distance: "3.2 km",
     price: 20000, // Rp 20,000
@@ -63,7 +63,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink11.jpg" },
+    imageSource: { uri: "https://i.imgur.com/PNPYCuX.jpeg" },
     title: "Bubble Tea",
     distance: "2.7 km",
     price: 15000, // Rp 15,000
@@ -71,7 +71,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink12.jpg" },
+    imageSource: { uri: "https://i.imgur.com/0ii4ots.jpeg" },
     title: "Smoothie",
     distance: "1.2 km",
     price: 12000, // Rp 12,000
@@ -79,7 +79,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink13.jpg" },
+    imageSource: { uri: "https://i.imgur.com/GGdyFqO.jpeg" },
     title: "Milkshake",
     distance: "3.8 km",
     price: 16000, // Rp 16,000
@@ -87,7 +87,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink14.jpg" },
+    imageSource: { uri: "https://i.imgur.com/sdVAvC1.jpeg" },
     title: "Lemonade",
     distance: "2.4 km",
     price: 14000, // Rp 14,000
@@ -95,7 +95,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink15.jpg" },
+    imageSource: { uri: "https://i.imgur.com/GX03j85.jpg" },
     title: "Iced Latte",
     distance: "3.5 km",
     price: 11000, // Rp 11,000

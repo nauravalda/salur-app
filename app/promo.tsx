@@ -23,7 +23,9 @@ const IMG_HEIGHT = 286;
 
 const foodAndBeverages = [
   {
-    imageSource: { uri: "https://example.com/food6.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/e2b5eedb9fbff5e2/130x160cq50/bakso-menul-homemade-foto-resep-utama.webp",
+    },
     title: "Bakso",
     distance: "2.3 km",
     price: 30000, // Rp 30,000
@@ -31,7 +33,7 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food7.jpg" },
+    imageSource: { uri: "https://i.imgur.com/xabApGU.jpeg" },
     title: "Ayam Goreng",
     distance: "3 km",
     price: 35000, // Rp 35,000
@@ -39,7 +41,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food8.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/1c86ad1c44e6cdb6/130x160cq50/soto-ayam-betawi-santan-susu-foto-resep-utama.webp",
+    },
     title: "Soto Ayam",
     distance: "1.8 km",
     price: 28000, // Rp 28,000
@@ -47,7 +51,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food9.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/b9b63fac8561dc8a/130x160cq50/rendang-sapi-jawa-foto-resep-utama.webp",
+    },
     title: "Rendang",
     distance: "2.5 km",
     price: 40000, // Rp 40,000
@@ -55,7 +61,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/food10.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/6bdc90143a18cd57/130x160cq50/martabak-telur-mini-foto-resep-utama.webp",
+    },
     title: "Martabak",
     distance: "3.2 km",
     price: 25000, // Rp 25,000
@@ -63,7 +71,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink6.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/946008bd7e58531d/130x160cq50/es-cincau-susu-foto-resep-utama.webp",
+    },
     title: "Es Cincau",
     distance: "2.7 km",
     price: 12000, // Rp 12,000
@@ -71,7 +81,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink7.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/429836932df59e52/130x160cq50/es-kelapa-muda-fantasi-foto-resep-utama.webp",
+    },
     title: "Es Kelapa Muda",
     distance: "1.2 km",
     price: 15000, // Rp 15,000
@@ -79,7 +91,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink8.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/7dd5deaff69f46cb/130x160cq50/jus-mangga-agar-agar-creamy-foto-resep-utama.webp",
+    },
     title: "Jus Mangga",
     distance: "3.8 km",
     price: 16000, // Rp 16,000
@@ -87,7 +101,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink9.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/6d507f5f1f50d75a/130x160cq50/ice-lychee-tea-foto-resep-utama.webp",
+    },
     title: "Es Leci",
     distance: "2.4 km",
     price: 14000, // Rp 14,000
@@ -95,7 +111,9 @@ const foodAndBeverages = [
     status: "Available",
   },
   {
-    imageSource: { uri: "https://example.com/drink10.jpg" },
+    imageSource: {
+      uri: "https://img-global.cpcdn.com/recipes/30437cbc3dcad3bf/130x160cq50/teh-tarik-homemade-foto-resep-utama.webp",
+    },
     title: "Teh Tarik",
     distance: "3.5 km",
     price: 11000, // Rp 11,000
