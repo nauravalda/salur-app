@@ -38,6 +38,11 @@ export default function Screen() {
           <Text className="text-center text-lg font-bold">Home Page</Text>
         </Link>
       </Button>
+      <Button>
+        <Link href="/refrigerator">
+          <Text className="text-center text-lg font-bold">Refrigerator Page</Text>
+        </Link>
+      </Button>
     </ScrollView>
   );
 }

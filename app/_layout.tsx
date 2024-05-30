@@ -115,11 +115,6 @@ export default function RootLayout() {
           }}
         />
       </Stack>
-      {/* <NavigationContainer>
-        <Tab.Navigator>
-          
-        </Tab.Navigator>
-      </NavigationContainer> */}
       <PortalHost />
     </ThemeProvider>
   );
