@@ -40,17 +40,26 @@ export default function Screen() {
       </Button>
       <Button>
         <Link href="/refrigerator">
-          <Text className="text-center text-lg font-bold">Refrigerator Page</Text>
+          <Text className="text-center text-lg font-bold">
+            Refrigerator Page
+          </Text>
         </Link>
       </Button>
       <Button>
         <Link href="/productdetails">
-          <Text className="text-center text-lg font-bold">Product Details Page</Text>
+          <Text className="text-center text-lg font-bold">
+            Product Details Page
+          </Text>
         </Link>
       </Button>
       <Button>
         <Link href="/page">
           <Text className="text-center text-lg font-bold">Navigation Test</Text>
+        </Link>
+      </Button>
+      <Button>
+        <Link href="/bestseller">
+          <Text className="text-center text-lg font-bold">Terlaris Page</Text>
         </Link>
       </Button>
     </ScrollView>

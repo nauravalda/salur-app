@@ -7,9 +7,31 @@ import {
   Modal,
   TextInput,
 } from "react-native";
-import { Plus,Minus } from "lucide-react-native";
+import { Plus, Minus } from "lucide-react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const ProductDetailsScreen = () => {
+type RootStackParamList = {
+  Home: undefined;
+  ProductDetails: {
+    imageSource: { uri: string };
+    title: string;
+    distance: string;
+    price: number;
+    discountedPrice: number;
+    status: string;
+  };
+};
+
+type ProductDetailsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "ProductDetails"
+>;
+
+const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
+  route,
+}) => {
+  const { imageSource, title, price, discountedPrice, status } = route.params;
+
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [notes, setNotes] = useState("");
@@ -42,15 +64,10 @@ const ProductDetailsScreen = () => {
   return (
     <View className="flex-1 bg-gray-100">
       <View className="relative">
-        <Image
-          source={require("../assets/images/ojek.png")}
-          className="w-full h-64"
-        />
+        <Image source={imageSource} className="w-full h-64" />
         <View className="absolute bottom-0 left-0 right-0 bg-gray-900 bg-opacity-50 p-4">
-          <Text className="text-white text-lg font-semibold">
-            Korean Garlic Bread Creamcheese
-          </Text>
-          <Text className="text-white">4 Tersedia | Diskon 50%</Text>
+          <Text className="text-white text-lg font-semibold">{title}</Text>
+          <Text className="text-white">{status}</Text>
         </View>
       </View>
 
@@ -58,8 +75,10 @@ const ProductDetailsScreen = () => {
         <View className="bg-white rounded-lg p-4 shadow-md">
           <Text className="text-lg font-semibold mb-2">Selamatkan Segera!</Text>
           <Text className="text-xl font-bold text-green-600 mb-2">
-            Rp 13.000{" "}
-            <Text className="text-gray-500 line-through">Rp 26.000</Text>
+            Rp {discountedPrice.toLocaleString()}{" "}
+            <Text className="text-gray-500 line-through">
+              Rp {price.toLocaleString()}
+            </Text>
           </Text>
           <Text className="text-gray-600 mb-4">
             Waktu pengambilan hari ini, 08:00 - 21:00
@@ -92,7 +111,7 @@ const ProductDetailsScreen = () => {
                   onPress={handleIncrement}
                   className="bg-gray-200 rounded-full p-2"
                   activeOpacity={0.7}>
-                    <Plus size={24} color="#333" />
+                  <Plus size={24} color="#333" />
                 </TouchableOpacity>
               </View>
             </View>
