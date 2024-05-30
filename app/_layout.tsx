@@ -85,8 +85,9 @@ export default function RootLayout() {
         <Stack.Screen
           name="purchase"
           options={{
-            title: "Complete Purchase",
+            title: "Konfirmasi Pesanan",
             headerShown: true,
+            headerBackground: () => null,
             // headerRight: () => <ThemeToggle />,
           }}
         />
