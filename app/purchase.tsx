@@ -4,7 +4,7 @@ import { ScrollView, View } from "react-native";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
 
-export default function Screen() {
+export default function PurchaseScreen() {
   return (
     <ScrollView contentContainerClassName="flex-1 items-center gap-5 p-6 bg-[#EEEEEE]">
       <Text className="text-center text-2xl font-bold">

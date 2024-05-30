@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SafeAreaView, View } from 'react-native';
 import FridgeCard from 'components/ui/fridgecard';
 
-export default function Screen() {
+export default function RefrigeratorScreen() {
   return (
     <SafeAreaView className="flex-1 bg-red-500 p-4 gap-2">
       <FridgeCard

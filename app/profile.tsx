@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
 import { PencilIcon, Star } from "lucide-react-native";
 
-export default function Screen() {
+export default function ProfileScreen() {
   return (
     <ScrollView contentContainerClassName="flex-1 items-center gap-5 mt-12 p-6 bg-secondary/30">
       {/* Profile */}
