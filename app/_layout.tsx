@@ -22,6 +22,9 @@ import ProductDetailsScreen from "./productdetails";
 import NearbyPage from "./nearby";
 import PromosPage from "./promo";
 import BestSellerPage from "./bestseller";
+import LoginScreen from "./auth/login";
+import RegisterScreen from "./auth/register";
+import AuthSuccessScreen from "./auth/successful";
 
 const LIGHT_THEME = {
   dark: false,
@@ -69,37 +72,9 @@ function HomeStack() {
   );
 }
 
-export default function RootLayout() {
-  const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
-  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
-
-  React.useEffect(() => {
-    (async () => {
-      const theme = await AsyncStorage.getItem("theme");
-      if (Platform.OS === "web") {
-        document.documentElement.classList.add("bg-background");
-      }
-      if (!theme) {
-        AsyncStorage.setItem("theme", colorScheme);
-        setIsColorSchemeLoaded(true);
-        return;
-      }
-      const colorTheme = theme === "dark" ? "dark" : "light";
-      if (colorTheme !== colorScheme) {
-        setColorScheme(colorTheme);
-      }
-      setIsColorSchemeLoaded(true);
-    })().finally(() => {
-      SplashScreen.hideAsync();
-    });
-  }, []);
-
-  if (!isColorSchemeLoaded) {
-    return null;
-  }
-
+function RootTabs() {
   return (
-    <Tab.Navigator initialRouteName="home">
+    <Tab.Navigator initialRouteName="auth/login">
       <Tab.Screen
         name="home"
         component={HomeStack}
@@ -144,5 +119,67 @@ export default function RootLayout() {
         }}
       /> */}
     </Tab.Navigator>
+  );
+}
+export default function RootLayout() {
+  const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
+  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    (async () => {
+      const theme = await AsyncStorage.getItem("theme");
+      if (Platform.OS === "web") {
+        document.documentElement.classList.add("bg-background");
+      }
+      if (!theme) {
+        AsyncStorage.setItem("theme", colorScheme);
+        setIsColorSchemeLoaded(true);
+        return;
+      }
+      const colorTheme = theme === "dark" ? "dark" : "light";
+      if (colorTheme !== colorScheme) {
+        setColorScheme(colorTheme);
+      }
+      setIsColorSchemeLoaded(true);
+    })().finally(() => {
+      SplashScreen.hideAsync();
+    });
+  }, []);
+
+  if (!isColorSchemeLoaded) {
+    return null;
+  }
+
+  return (
+    <Stack.Navigator initialRouteName="auth/login">
+      <Stack.Screen
+        name="auth/login"
+        component={LoginScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="auth/register"
+        component={RegisterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="auth/successful"
+        component={AuthSuccessScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="home"
+        component={RootTabs}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
   );
 }

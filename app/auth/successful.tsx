@@ -1,14 +1,16 @@
+import { Link } from "expo-router";
 import * as React from "react";
 import { Image, Platform, ScrollView, TextInput, View } from "react-native";
 import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
+import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
 
-export default function Screen() {
+export default function AuthSuccessScreen() {
   return (
     <ScrollView contentContainerClassName="flex-1 justify-center items-center">
       {/* Login Successful */}
       <View className="web:max-w-xs min-h-screen w-full">
-        <View className="flex flex-col justify-center items-center h-1/2">
+        <View className="flex flex-col gap-3 justify-center items-center h-1/2 mb-12">
           <Image
             source={require("../../assets/images/icon.png")}
             style={{ width: 240, height: 240 }}
@@ -16,6 +18,11 @@ export default function Screen() {
           <Text className="text-center font-bold text-2xl">
             Login Successful!
           </Text>
+          <Button className="bg-red-600">
+            <Link href="/home">
+              <Text className="font-bold">Ke Halaman Utama</Text>
+            </Link>
+          </Button>
         </View>
         <View className="flex h-1/2 bg-red-600 px-12 gap-2">
           <View className="-mt-20">
