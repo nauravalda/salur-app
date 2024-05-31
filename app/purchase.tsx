@@ -21,7 +21,26 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog";
 
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+
+type RootStackParamList = {
+  Home: undefined;
+  ProductDetails: undefined;
+  Nearby: undefined;
+  Promos: undefined;
+  BestSeller: undefined;
+  PurchaseSuccessful: undefined;
+};
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "PurchaseSuccessful"
+>;
+
 export default function PurchasePage() {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
   const [payment, setPayment] = React.useState("OVO");
   const [address, setAddress] = React.useState("Jl. Sukahaji Baru No.18");
   const [orderMethod, setOrderMethod] = React.useState("Gojek");
@@ -37,6 +56,10 @@ export default function PurchasePage() {
       setOrderMethod(label);
     };
   }
+
+  const handleNavigateToSuccess = () => {
+    navigation.navigate("PurchaseSuccessful");
+  };
 
   const orderData = [
     {
@@ -79,7 +102,8 @@ export default function PurchasePage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-red-600 bg-none rounded-full">
+                  className="border-red-600 bg-none rounded-full"
+                >
                   <Text className="text-red-600 font-bold">Ubah Alamat</Text>
                 </Button>
               </DialogTrigger>
@@ -149,7 +173,8 @@ export default function PurchasePage() {
                 <Button
                   variant="link"
                   size="sm"
-                  className="border-none bg-none ring-none">
+                  className="border-none bg-none ring-none"
+                >
                   <ChevronRight
                     size={26}
                     color="#747474"
@@ -172,7 +197,8 @@ export default function PurchasePage() {
                 <RadioGroup
                   value={orderMethod}
                   onValueChange={setOrderMethod}
-                  className="gap-3">
+                  className="gap-3"
+                >
                   <RadioGroupItemWithButton
                     value="Gojek"
                     onButtonPress={onButtonPress("Gojek")}
@@ -206,7 +232,8 @@ export default function PurchasePage() {
           {orderData.map((item) => (
             <View
               key={item.id}
-              className="flex flex-row justify-between items-start">
+              className="flex flex-row justify-between items-start"
+            >
               <View className="flex flex-row items-start gap-2 flex-1">
                 <Image
                   className="rounded-md"
@@ -218,7 +245,8 @@ export default function PurchasePage() {
                     <Text
                       className={
                         item.available ? "text-turquoise-600" : "text-red-600"
-                      }>
+                      }
+                    >
                       {item.available ? "Tersedia" : "Habis"}
                     </Text>
                   </Badge>
@@ -277,7 +305,8 @@ export default function PurchasePage() {
           <RadioGroup
             value={payment}
             onValueChange={setPayment}
-            className="gap-3">
+            className="gap-3"
+          >
             <RadioGroupItemWithLabel
               value="OVO"
               onLabelPress={onLabelPress("OVO")}
@@ -332,9 +361,9 @@ export default function PurchasePage() {
           </View>
 
           <Button className="rounded-full bg-[#D92F2F]">
-            <Text className="text-white font-bold">
-              Pilih Metode Pembayaran
-            </Text>
+            <Link href="/purchase-success">
+              <Text className="text-white font-bold">Bayar Sekarang</Text>
+            </Link>
           </Button>
         </View>
       </ScrollView>
@@ -371,7 +400,8 @@ function RadioGroupItemWithButton({
       <RadioGroupItem aria-labelledby={`label-for-${value}`} value={value} />
       <View
         nativeID={`label-for-${value}`}
-        className="flex flex-row flex-grow justify-between items-center border border-muted-foreground rounded-lg py-4 px-6">
+        className="flex flex-row flex-grow justify-between items-center border border-muted-foreground rounded-lg py-4 px-6"
+      >
         <Text className="text-sm text-muted-foreground font-bold">{value}</Text>
 
         <Text className="text-sm text-muted-foreground font-bold">

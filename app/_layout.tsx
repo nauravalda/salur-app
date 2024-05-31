@@ -25,6 +25,8 @@ import BestSellerPage from "./bestseller";
 import LoginScreen from "./auth/login";
 import RegisterScreen from "./auth/register";
 import AuthSuccessScreen from "./auth/successful";
+import PurchaseSuccessScreen from "./purchase-success";
+import MyOrderScreen from "./myorders";
 
 const LIGHT_THEME = {
   dark: false,
@@ -94,7 +96,20 @@ function RootTabs() {
             <Refrigerator size={size} color={color} />
           ),
           tabBarLabel: "Kulkasku",
-          headerShown: false,
+          headerTitle: "Kulkasku",
+          // headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="myorder"
+        component={MyOrderScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <ReceiptText size={size} color={color} />
+          ),
+          tabBarLabel: "Pesanan Saya",
+          headerTitle: "Pesanan Saya",
+          // headerShown: false,
         }}
       />
       <Tab.Screen
@@ -105,7 +120,8 @@ function RootTabs() {
             <UserCircle size={size} color={color} />
           ),
           tabBarLabel: "Profile",
-          headerShown: false,
+          headerTitle: "Profile",
+          // headerShown: false,
         }}
       />
       {/* <Tab.Screen
@@ -176,6 +192,13 @@ export default function RootLayout() {
       <Stack.Screen
         name="home"
         component={RootTabs}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="purchase-successful"
+        component={PurchaseSuccessScreen}
         options={{
           headerShown: false,
         }}

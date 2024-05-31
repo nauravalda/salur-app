@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { AlarmClock } from "lucide-react-native";
+import { Banknote } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-interface FridgeCardProps {
+interface MyOrderCardProps {
   title: string;
   date: string;
   imageSource: any;
@@ -12,20 +12,24 @@ interface FridgeCardProps {
 
 type RootStackParamList = {
   Home: undefined;
-  FridgeDetails: { title: string; date: string; imageSource: any };
+  MyOrderDetails: { title: string; date: string; imageSource: any };
 };
 
-type FridgeDetailsNavigationProp = StackNavigationProp<
+type MyOrderDetailsNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Home"
 >;
 
-const FridgeCard: React.FC<FridgeCardProps> = ({ title, date, imageSource }) => {
-  const navigation = useNavigation<FridgeDetailsNavigationProp>();
+const MyOrderCard: React.FC<MyOrderCardProps> = ({
+  title,
+  date,
+  imageSource,
+}) => {
+  const navigation = useNavigation<MyOrderDetailsNavigationProp>();
 
   const handlePress = () => {
-    console.log(`Navigating to FridgeDetails: ${title}`)
-    // navigation.navigate("FridgeDetails", { title, date, imageSource });
+    console.log(`Navigating to MyOrderDetails: ${title}`);
+    // navigation.navigate("MyOrderDetails", { title, date, imageSource });
   };
 
   return (
@@ -35,8 +39,8 @@ const FridgeCard: React.FC<FridgeCardProps> = ({ title, date, imageSource }) => 
         <View className="ml-4">
           <Text className="text-lg font-semibold">{title}</Text>
           <View className="flex-row items-center mt-2">
-            <AlarmClock size={16} color="red" />
-            <Text className="text-red-500 ml-2">{date}</Text>
+            <Banknote size={16} color="black" />
+            <Text className="text-gray-200 ml-2">{date}</Text>
           </View>
         </View>
       </View>
@@ -44,4 +48,4 @@ const FridgeCard: React.FC<FridgeCardProps> = ({ title, date, imageSource }) => 
   );
 };
 
-export default FridgeCard;
+export default MyOrderCard;
