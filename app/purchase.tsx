@@ -360,10 +360,11 @@ export default function PurchasePage() {
             </View>
           </View>
 
-          <Button className="rounded-full bg-[#D92F2F]">
-            <Link href="/purchase-success">
-              <Text className="text-white font-bold">Bayar Sekarang</Text>
-            </Link>
+          <Button
+            className="rounded-full bg-[#D92F2F]"
+            onPress={handleNavigateToSuccess}
+          >
+            <Text className="text-white font-bold">Bayar Sekarang</Text>
           </Button>
         </View>
       </ScrollView>

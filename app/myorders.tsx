@@ -8,17 +8,17 @@ export default function RefrigeratorScreen() {
       <ScrollView contentContainerClassName="flex-grow bg-red-500 px-4 py-8 gap-6">
         <MyOrderCard
           title="Salad Buah"
-          date="33.750"
+          date="Sudah Dibayar"
           imageSource={require("../assets/images/food.png")}
         />
         <MyOrderCard
-          title="Roti Unyil"
-          date="3.000"
+          title="Korean Garlic Cheese Bread"
+          date="Sedang Diantar"
           imageSource={require("../assets/images/food.png")}
         />
         <MyOrderCard
           title="Susu Kuda"
-          date="3.000"
+          date="Kurir Hilang"
           imageSource={require("../assets/images/food.png")}
         />
       </ScrollView>

@@ -70,6 +70,14 @@ function HomeStack() {
         component={BestSellerPage}
         options={{ title: "Best Sellers" }}
       />
+      <Stack.Screen
+        name="PurchaseSuccessful"
+        component={PurchaseSuccessScreen}
+        options={{
+          title: "Purchase Successful",
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -192,13 +200,6 @@ export default function RootLayout() {
       <Stack.Screen
         name="home"
         component={RootTabs}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="purchase-successful"
-        component={PurchaseSuccessScreen}
         options={{
           headerShown: false,
         }}

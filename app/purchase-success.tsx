@@ -7,7 +7,7 @@ import { Text } from "~/components/ui/text";
 
 export default function PurchaseSuccessScreen() {
   return (
-    <ScrollView contentContainerClassName="flex-1 justify-center items-center">
+    <ScrollView contentContainerClassName="flex-1 mt-20 justify-center items-center">
       {/* Login Successful */}
       <View className="web:max-w-xs min-h-screen w-full">
         <View className="flex flex-col gap-3 justify-center items-center h-1/2 mb-12">
@@ -16,7 +16,7 @@ export default function PurchaseSuccessScreen() {
             style={{ width: 240, height: 240 }}
           />
           <Text className="text-center font-bold text-2xl">
-            Login Successful!
+            Pesanan Berhasil!
           </Text>
           <Button className="bg-red-600">
             <Link href="/home">
@@ -31,7 +31,9 @@ export default function PurchaseSuccessScreen() {
               style={{ width: 240, height: 240 }}
             />
           </View>
-          <Text className="text-3xl font-bold text-white">Selamat Datang!</Text>
+          <Text className="text-3xl font-bold text-white">
+            Terima kasih sudah menggunakan Salur!
+          </Text>
           <Text className="text-lg font-medium text-white max-w-64">
             Mari kita lestarikan lingkungan dari limbah makanan sisa bersama
             Salur.
