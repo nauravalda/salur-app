@@ -10,7 +10,7 @@ import { MapPin } from "lucide-react-native";
 
 type RootStackParamList = {
   Home: undefined;
-  ProductDetails: {
+  "(product)/productdetails": {
     imageSource: { uri: string };
     title: string;
     distance: string;

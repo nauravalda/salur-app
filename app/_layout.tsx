@@ -41,47 +41,6 @@ const DARK_THEME = {
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function HomeStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} options={{}} />
-      <Stack.Screen
-        name="ProductDetails"
-        component={ProductDetailsScreen as any}
-        options={{ title: "Product Details" }}
-      />
-      <Stack.Screen
-        name="PurchasePage"
-        component={PurchaseScreen} // Add PurchaseScreen component here
-        options={{ title: "Purchase" }} // Add any options you need
-      />
-      <Stack.Screen
-        name="Nearby"
-        component={NearbyPage}
-        options={{ title: "Nearby" }}
-      />
-      <Stack.Screen
-        name="Promos"
-        component={PromosPage}
-        options={{ title: "Promos" }}
-      />
-      <Stack.Screen
-        name="BestSeller"
-        component={BestSellerPage}
-        options={{ title: "Best Sellers" }}
-      />
-      <Stack.Screen
-        name="PurchaseSuccessful"
-        component={PurchaseSuccessScreen}
-        options={{
-          title: "Purchase Successful",
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
 function RootTabs() {
   return (
     <Tab.Navigator initialRouteName="auth/login">
@@ -145,6 +104,30 @@ function RootTabs() {
     </Tab.Navigator>
   );
 }
+
+function HomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} options={{}} />
+      <Stack.Screen
+        name="Nearby"
+        component={NearbyPage}
+        options={{ title: "Nearby" }}
+      />
+      <Stack.Screen
+        name="Promos"
+        component={PromosPage}
+        options={{ title: "Promos" }}
+      />
+      <Stack.Screen
+        name="BestSeller"
+        component={BestSellerPage}
+        options={{ title: "Best Sellers" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
@@ -201,6 +184,24 @@ export default function RootLayout() {
         name="index"
         component={RootTabs}
         options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="(product)/productdetails"
+        component={ProductDetailsScreen as any}
+        options={{ title: "Product Details" }}
+      />
+      <Stack.Screen
+        name="(purchase)/purchase"
+        component={PurchaseScreen} // Add PurchaseScreen component here
+        options={{ title: "Purchase" }} // Add any options you need
+      />
+      <Stack.Screen
+        name="(purchase)/purchase-success"
+        component={PurchaseSuccessScreen}
+        options={{
+          title: "Purchase Successful",
           headerShown: false,
         }}
       />

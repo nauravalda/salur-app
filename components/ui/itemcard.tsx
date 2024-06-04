@@ -31,7 +31,8 @@ const ItemCard: React.FC<ItemCardProps> = ({
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("ProductDetails", {
+    // Error gajelas bodo amat
+    navigation.navigate("(product)/productdetails", {
       imageSource,
       title,
       distance,
@@ -39,6 +40,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
       discountedPrice,
       status,
     });
+
     if (onPress) {
       onPress();
     }

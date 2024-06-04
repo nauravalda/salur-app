@@ -26,16 +26,16 @@ import { useNavigation } from "@react-navigation/native";
 
 type RootStackParamList = {
   Home: undefined;
-  ProductDetails: undefined;
+  "(product)/productdetails": undefined;
   Nearby: undefined;
   Promos: undefined;
   BestSeller: undefined;
-  PurchaseSuccessful: undefined;
+  "(purchase)/purchase-success": undefined;
 };
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  "PurchaseSuccessful"
+  "(purchase)/purchase-success"
 >;
 
 export default function PurchasePage() {
@@ -58,7 +58,7 @@ export default function PurchasePage() {
   }
 
   const handleNavigateToSuccess = () => {
-    navigation.navigate("PurchaseSuccessful");
+    navigation.navigate("(purchase)/purchase-success");
   };
 
   const orderData = [

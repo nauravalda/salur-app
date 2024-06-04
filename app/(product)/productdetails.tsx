@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, Modal, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Modal,
+  TextInput,
+} from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { Minus, Plus } from "lucide-react-native";
 
 type RootStackParamList = {
   Home: undefined;
-  ProductDetails: {
+  "(product)/productdetails": {
     imageSource: { uri: string };
     title: string;
     distance: string;
@@ -14,7 +21,7 @@ type RootStackParamList = {
     discountedPrice: number;
     status: string;
   };
-  PurchasePage: {
+  "(purchase)/purchase": {
     imageSource: { uri: string };
     title: string;
     price: number;
@@ -22,9 +29,24 @@ type RootStackParamList = {
   };
 };
 
-type ProductDetailsNavigationProp = NativeStackNavigationProp<RootStackParamList, "ProductDetails">;
+type ProductDetailsNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "(product)/productdetails"
+>;
 
-export default function ProductDetailsScreen({ route }: { route: { params: { imageSource: { uri: string }; title: string; price: number; discountedPrice: number; status: string } } }) {
+export default function ProductDetailsScreen({
+  route,
+}: {
+  route: {
+    params: {
+      imageSource: { uri: string };
+      title: string;
+      price: number;
+      discountedPrice: number;
+      status: string;
+    };
+  };
+}) {
   const navigation = useNavigation<ProductDetailsNavigationProp>();
   const { imageSource, title, price, discountedPrice, status } = route.params;
 
@@ -53,7 +75,7 @@ export default function ProductDetailsScreen({ route }: { route: { params: { ima
 
   const handleAddToCartConfirm = () => {
     console.log("Add to cart", quantity, notes, price, discountedPrice, title);
-    navigation.navigate("PurchasePage", {
+    navigation.navigate("(purchase)/purchase", {
       imageSource,
       title,
       price,
@@ -87,7 +109,8 @@ export default function ProductDetailsScreen({ route }: { route: { params: { ima
           <TouchableOpacity
             onPress={handleAddToCart}
             className="bg-red-600 rounded-lg py-3"
-            activeOpacity={0.7}>
+            activeOpacity={0.7}
+          >
             <Text className="text-white text-center font-semibold">
               Tambah ke keranjang
             </Text>
@@ -104,14 +127,16 @@ export default function ProductDetailsScreen({ route }: { route: { params: { ima
                 <TouchableOpacity
                   onPress={handleDecrement}
                   className="bg-gray-200 rounded-full p-2"
-                  activeOpacity={0.7}>
+                  activeOpacity={0.7}
+                >
                   <Minus size={24} color="#333" />
                 </TouchableOpacity>
                 <Text className="text-2xl font-bold mx-4">{quantity}</Text>
                 <TouchableOpacity
                   onPress={handleIncrement}
                   className="bg-gray-200 rounded-full p-2"
-                  activeOpacity={0.7}>
+                  activeOpacity={0.7}
+                >
                   <Plus size={24} color="#333" />
                 </TouchableOpacity>
               </View>
@@ -126,7 +151,8 @@ export default function ProductDetailsScreen({ route }: { route: { params: { ima
             <TouchableOpacity
               onPress={handleAddToCartConfirm}
               className="bg-red-600 rounded-lg py-3"
-              activeOpacity={0.7}>
+              activeOpacity={0.7}
+            >
               <Text className="text-white text-center font-semibold">
                 Tambahkan ({quantity} item)
               </Text>

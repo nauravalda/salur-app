@@ -19,7 +19,7 @@ export default function PurchaseSuccessScreen() {
             Pesanan Berhasil!
           </Text>
           <Button className="bg-red-600">
-            <Link href="/home">
+            <Link href="/">
               <Text className="font-bold">Ke Halaman Utama</Text>
             </Link>
           </Button>

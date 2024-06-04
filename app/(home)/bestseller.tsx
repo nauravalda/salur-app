@@ -105,7 +105,7 @@ const foodAndBeverages = [
 ];
 
 type RootStackParamList = {
-  ProductDetails: {
+  "(product)/productdetails": {
     imageSource: { uri: string };
     title: string;
     distance: string;
@@ -150,7 +150,7 @@ export default function BestSellerScreen() {
 
   const handleCardPress = (item: any) => {
     // Handle press event here
-    navigation.navigate("ProductDetails", item);
+    navigation.navigate("(product)/productdetails", item);
   };
 
   return (
