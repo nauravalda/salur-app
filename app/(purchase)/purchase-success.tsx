@@ -12,7 +12,7 @@ export default function PurchaseSuccessScreen() {
       <View className="web:max-w-xs min-h-screen w-full">
         <View className="flex flex-col gap-3 justify-center items-center h-1/2 mb-12">
           <Image
-            source={require("../assets/images/icon.png")}
+            source={require("../../assets/images/icon.png")}
             style={{ width: 240, height: 240 }}
           />
           <Text className="text-center font-bold text-2xl">
@@ -27,7 +27,7 @@ export default function PurchaseSuccessScreen() {
         <View className="flex h-1/2 bg-red-600 px-12 gap-2">
           <View className="-mt-20">
             <Image
-              source={require("../assets/images/food.png")}
+              source={require("../../assets/images/food.png")}
               style={{ width: 240, height: 240 }}
             />
           </View>

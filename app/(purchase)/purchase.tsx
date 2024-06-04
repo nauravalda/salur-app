@@ -67,7 +67,7 @@ export default function PurchasePage() {
       name: "Korean Garlic Bread Creamcheese",
       amount: 1,
       price: 3000,
-      image: require("../assets/images/food.png"),
+      image: require("../../assets/images/food.png"),
       available: true,
     },
     {
@@ -75,7 +75,7 @@ export default function PurchasePage() {
       name: "Roti isi Coklat",
       amount: 2,
       price: 13000,
-      image: require("../assets/images/food.png"),
+      image: require("../../assets/images/food.png"),
       available: false,
     },
   ];
@@ -237,7 +237,7 @@ export default function PurchasePage() {
               <View className="flex flex-row items-start gap-2 flex-1">
                 <Image
                   className="rounded-md"
-                  source={require("../assets/images/food.png")}
+                  source={require("../../assets/images/food.png")}
                   style={{ width: 64, height: 64 }}
                 />
                 <View className="flex flex-col justify-between gap-1 max-w-[50%] flex-grow">

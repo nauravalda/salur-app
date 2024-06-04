@@ -23,83 +23,83 @@ const IMG_HEIGHT = 286;
 
 const foodAndBeverages = [
   {
-    imageSource: { uri: "https://i.imgur.com/DEsk1Is.jpeg" },
-    title: "Sushi",
-    distance: "2.7 km",
-    price: 45000, // Rp 45,000
-    discountedPrice: 32000, // Rp 32,000
-    status: "Available",
-  },
-  {
-    imageSource: { uri: "https://i.imgur.com/9MZVHIx.jpeg" },
-    title: "Pizza",
-    distance: "3.5 km",
+    imageSource: { uri: "https://i.imgur.com/alpENn6.jpg" },
+    title: "Nasi Goreng",
+    distance: "2 km",
     price: 35000, // Rp 35,000
-    discountedPrice: 24000, // Rp 24,000
+    discountedPrice: 30000, // Rp 30,000
     status: "Available",
   },
   {
-    imageSource: { uri: "https://i.imgur.com/2ACdlbK.jpeg" },
-    title: "Burger",
-    distance: "1.8 km",
+    imageSource: { uri: "https://i.imgur.com/mwDTf48.jpg" },
+    title: "Sate Ayam",
+    distance: "3.5 km",
     price: 25000, // Rp 25,000
-    discountedPrice: 15000, // Rp 15,000
+    discountedPrice: 20000, // Rp 20,000
     status: "Available",
   },
   {
-    imageSource: { uri: "https://i.imgur.com/FyiwZ76.png" },
-    title: "Tacos",
-    distance: "2.5 km",
+    imageSource: { uri: "https://i.imgur.com/2Ktrvoo.jpg" },
+    title: "Gado-Gado",
+    distance: "1 km",
     price: 30000, // Rp 30,000
+    discountedPrice: 25000, // Rp 25,000
+    status: "Available",
+  },
+  {
+    imageSource: { uri: "https://i.imgur.com/VMVK7k0.jpg" },
+    title: "Mie Ayam",
+    distance: "4 km",
+    price: 20000, // Rp 20,000
     discountedPrice: 18000, // Rp 18,000
     status: "Available",
   },
   {
-    imageSource: { uri: "https://i.imgur.com/GQrSjY7.jpeg" },
-    title: "Kebab",
-    distance: "3.2 km",
-    price: 20000, // Rp 20,000
-    discountedPrice: 12000, // Rp 12,000
+    imageSource: { uri: "https://i.imgur.com/rYiDfor.jpg" },
+    title: "Nasi Padang",
+    distance: "2.5 km",
+    price: 40000, // Rp 40,000
+    discountedPrice: 35000, // Rp 35,000
     status: "Available",
   },
   {
-    imageSource: { uri: "https://i.imgur.com/PNPYCuX.jpeg" },
-    title: "Bubble Tea",
-    distance: "2.7 km",
-    price: 15000, // Rp 15,000
-    discountedPrice: 9000, // Rp 9,000
-    status: "Available",
-  },
-  {
-    imageSource: { uri: "https://i.imgur.com/0ii4ots.jpeg" },
-    title: "Smoothie",
-    distance: "1.2 km",
-    price: 12000, // Rp 12,000
-    discountedPrice: 7000, // Rp 7,000
-    status: "Available",
-  },
-  {
-    imageSource: { uri: "https://i.imgur.com/GGdyFqO.jpeg" },
-    title: "Milkshake",
-    distance: "3.8 km",
-    price: 16000, // Rp 16,000
-    discountedPrice: 10000, // Rp 10,000
-    status: "Available",
-  },
-  {
-    imageSource: { uri: "https://i.imgur.com/sdVAvC1.jpeg" },
-    title: "Lemonade",
-    distance: "2.4 km",
-    price: 14000, // Rp 14,000
+    imageSource: { uri: "https://i.imgur.com/XFS5UCM.jpg" },
+    title: "Es Teh",
+    distance: "1.5 km",
+    price: 10000, // Rp 10,000
     discountedPrice: 8000, // Rp 8,000
     status: "Available",
   },
   {
+    imageSource: { uri: "https://i.imgur.com/MwnpRqb.jpg" },
+    title: "Es Jeruk",
+    distance: "2 km",
+    price: 12000, // Rp 12,000
+    discountedPrice: 10000, // Rp 10,000
+    status: "Available",
+  },
+  {
+    imageSource: { uri: "https://i.imgur.com/jldb7G3.jpg" },
+    title: "Es Campur",
+    distance: "3 km",
+    price: 15000, // Rp 15,000
+    discountedPrice: 12000, // Rp 12,000
+    status: "Available",
+  },
+  {
+    imageSource: { uri: "https://i.imgur.com/achg0Bj.jpg" },
+    title: "Jus Alpukat",
+    distance: "4.5 km",
+    price: 18000, // Rp 18,000
+    discountedPrice: 15000, // Rp 15,000
+    status: "Available",
+  },
+  {
     imageSource: { uri: "https://i.imgur.com/GX03j85.jpg" },
-    title: "Iced Latte",
+    title: "Es Kopi",
     distance: "3.5 km",
-    price: 11000, // Rp 11,000
-    discountedPrice: 6000, // Rp 6,000
+    price: 13000, // Rp 13,000
+    discountedPrice: 11000, // Rp 11,000
     status: "Available",
   },
 ];
@@ -118,15 +118,15 @@ type RootStackParamList = {
   BestSeller: undefined;
 };
 
-type BestSellerScreenNavigationProp = NativeStackNavigationProp<
+type NearbyScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  "BestSeller"
+  "Nearby"
 >;
 
-export default function BestSellerScreen() {
+export default function NearbyScreen() {
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOfset = useScrollViewOffset(scrollRef);
-  const navigation = useNavigation<BestSellerScreenNavigationProp>();
+  const navigation = useNavigation<NearbyScreenNavigationProp>();
   const imageAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -157,7 +157,7 @@ export default function BestSellerScreen() {
     <View style={styles.container}>
       <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
         <Animated.Image
-          source={require("../assets/images/terlarisbg.png")}
+          source={require("../../assets/images/ojek.png")}
           style={[styles.image, imageAnimatedStyle]}
         />
         <View style={{ backgroundColor: "#fff" }}>

@@ -14,18 +14,18 @@ import {
   ReceiptText,
   UserCircle,
 } from "lucide-react-native";
-import HomeScreen from "./home";
+import HomeScreen from "./index";
 import ProfileScreen from "./profile";
 import RefrigeratorScreen from "./refrigerator";
-import PurchaseScreen from "./purchase";
-import ProductDetailsScreen from "./productdetails";
-import NearbyPage from "./nearby";
-import PromosPage from "./promo";
-import BestSellerPage from "./bestseller";
+import PurchaseScreen from "./(purchase)/purchase";
+import ProductDetailsScreen from "./(product)/productdetails";
+import NearbyPage from "./(home)/nearby";
+import PromosPage from "./(home)/promo";
+import BestSellerPage from "./(home)/bestseller";
 import LoginScreen from "./auth/login";
 import RegisterScreen from "./auth/register";
 import AuthSuccessScreen from "./auth/successful";
-import PurchaseSuccessScreen from "./purchase-success";
+import PurchaseSuccessScreen from "./(purchase)/purchase-success";
 import MyOrderScreen from "./myorders";
 
 const LIGHT_THEME = {
@@ -198,7 +198,7 @@ export default function RootLayout() {
         }}
       />
       <Stack.Screen
-        name="home"
+        name="index"
         component={RootTabs}
         options={{
           headerShown: false,

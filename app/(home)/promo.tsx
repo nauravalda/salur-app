@@ -175,7 +175,7 @@ export default function PromoScreen() {
     <View style={styles.container}>
       <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
         <Animated.Image
-          source={require("../assets/images/promobg.png")}
+          source={require("../../assets/images/promobg.png")}
           style={[styles.image, imageAnimatedStyle]}
         />
         <View style={{ backgroundColor: "#fff" }}>
