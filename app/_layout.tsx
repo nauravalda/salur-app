@@ -27,6 +27,7 @@ import RegisterScreen from "./auth/register";
 import AuthSuccessScreen from "./auth/successful";
 import PurchaseSuccessScreen from "./(purchase)/purchase-success";
 import MyOrderScreen from "./myorders";
+import { PortalHost } from "~/components/primitives/portal";
 
 const LIGHT_THEME = {
   dark: false,
@@ -158,53 +159,57 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack.Navigator initialRouteName="auth/login">
-      <Stack.Screen
-        name="auth/login"
-        component={LoginScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="auth/register"
-        component={RegisterScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="auth/successful"
-        component={AuthSuccessScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="index"
-        component={RootTabs}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="(product)/productdetails"
-        component={ProductDetailsScreen as any}
-        options={{ title: "Product Details" }}
-      />
-      <Stack.Screen
-        name="(purchase)/purchase"
-        component={PurchaseScreen} // Add PurchaseScreen component here
-        options={{ title: "Purchase" }} // Add any options you need
-      />
-      <Stack.Screen
-        name="(purchase)/purchase-success"
-        component={PurchaseSuccessScreen}
-        options={{
-          title: "Purchase Successful",
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator initialRouteName="auth/login">
+        <Stack.Screen
+          name="auth/login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="auth/register"
+          component={RegisterScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="auth/successful"
+          component={AuthSuccessScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="index"
+          component={RootTabs}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="(product)/productdetails"
+          component={ProductDetailsScreen as any}
+          options={{ title: "Product Details" }}
+        />
+        <Stack.Screen
+          name="(purchase)/purchase"
+          component={PurchaseScreen} // Add PurchaseScreen component here
+          options={{ title: "Purchase" }} // Add any options you need
+        />
+        <Stack.Screen
+          name="(purchase)/purchase-success"
+          component={PurchaseSuccessScreen}
+          options={{
+            title: "Purchase Successful",
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+
+      <PortalHost />
+    </>
   );
 }
