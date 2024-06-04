@@ -9,7 +9,7 @@ import { Separator } from "~/components/ui/separator";
 import { Text } from "~/components/ui/text";
 import { cn } from "~/lib/utils";
 
-export default function Screen() {
+export default function RegisterScreen() {
   const inputRef = React.useRef<TextInput>(null);
   const [err, setErr] = React.useState<string | null>(null);
 
@@ -150,7 +150,9 @@ export default function Screen() {
         </View>
         {err && <ErrorMessage msg={err} />}
         <Button className="bg-blue-400">
-          <Text className="font-bold">Register</Text>
+          <Link href="/auth/successful">
+            <Text className="font-bold">Register</Text>
+          </Link>
         </Button>
         <View className="flex flex-row justify-between items-center w-full">
           <Separator className="w-1/3" />

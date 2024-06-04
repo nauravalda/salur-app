@@ -1,40 +1,51 @@
 import React from "react";
-import { View, TextInput, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const SearchAndButtons = () => {
+type RootStackParamList = {
+  Home: undefined;
+  Sekitarmu: undefined;
+  PromoJumbo: undefined;
+  Terlaris: undefined;
+};
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
+
+const BottomButtons = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
   return (
-    <View className="flex-1 bg-red-500 p-4">
-      <View className="flex-row items-center bg-white rounded-full px-4 py-2 mb-4">
-        <TextInput
-          className="flex-1 ml-2 text-base"
-          placeholder="Mau selamatkan makanan apa hari ini?"
-          placeholderTextColor="#888"
+    <View className="flex-row justify-around mt-4">
+      <TouchableOpacity
+        className="items-center"
+        onPress={() => navigation.navigate("Sekitarmu")}>
+        <Image
+          source={require("./assets/sekitarmu.png")}
+          className="w-12 h-12 mb-2"
         />
-      </View>
-      <View className="flex-row justify-between">
-        <TouchableOpacity className="bg-white rounded-lg p-4">
-          <View className="flex-row items-center">
-            <Text className="text-base ml-2 text-gray-600">Sekitarmu</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity className="bg-white rounded-lg p-4">
-          <View className="flex-row items-center">
-            <Text className="text-base ml-2 text-gray-600">Promo Jumbo</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity className="bg-white rounded-lg p-4">
-          <View className="flex-row items-center">
-            <Text className="text-base ml-2 text-gray-600">Terlaris</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View className="flex-row items-center bg-green-500 rounded-full px-4 py-2 mt-4">
-        <Text className="text-base ml-2 text-white">
-          Tanam Pohon-mu Sekarang!
-        </Text>
-      </View>
+        <Text className="text-gray-600">Sekitarmu</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        className="items-center"
+        onPress={() => navigation.navigate("PromoJumbo")}>
+        <Image
+          source={require("./assets/iamgespromo.png")}
+          className="w-12 h-12 mb-2"
+        />
+        <Text className="text-gray-600">Promo Jumbo</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        className="items-center"
+        onPress={() => navigation.navigate("Terlaris")}>
+        <Image
+          source={require("./assets/terlaris.png")}
+          className="w-12 h-12 mb-2"
+        />
+        <Text className="text-gray-600">Terlaris</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default SearchAndButtons;
+export default BottomButtons;

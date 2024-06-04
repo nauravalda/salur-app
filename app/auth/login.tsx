@@ -9,7 +9,7 @@ import { Separator } from "~/components/ui/separator";
 import { Text } from "~/components/ui/text";
 import { cn } from "~/lib/utils";
 
-export default function Screen() {
+export default function LoginScreen() {
   const inputRef = React.useRef<TextInput>(null);
   const [err, setErr] = React.useState<string | null>(null);
 

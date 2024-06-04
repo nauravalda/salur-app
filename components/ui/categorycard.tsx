@@ -11,8 +11,8 @@ const FoodCategoryItem: React.FC<FoodCategoryItemProps> = ({
   imageSource,
 }) => {
   return (
-    <View className="mr-4">
-      <Image source={imageSource} className="w-20 h-20 rounded-lg" />
+    <View className="mr-4 items-center">
+      <Image source={imageSource} className="w-15 h-25 rounded-lg" />
       <Text className="mt-1 text-center text-gray-600">{title}</Text>
     </View>
   );

@@ -4,10 +4,19 @@ import FoodCategoryItem from "components/ui/categorycard";
 
 const FoodCategoryList: React.FC = () => {
   const categoryItems = [
-    { title: "Makanan Berat", imageSource: require("../assets/images/ojek.png") },
-    { title: "Roti dan Kue", imageSource: require("../assets/images/ojek.png") },
-    { title: "Makanan Vegan", imageSource: require("../assets/images/ojek.png") },
-    { title: "Minuman", imageSource: require("../assets/images/ojek.png") },
+    {
+      title: "Makanan Berat",
+      imageSource: require("../../assets/images/mb.png"),
+    },
+    {
+      title: "Roti dan Kue",
+      imageSource: require("../../assets/images/cake.png"),
+    },
+    {
+      title: "Makanan Vegan",
+      imageSource: require("../../assets/images/vegan.png"),
+    },
+    { title: "Minuman", imageSource: require("../../assets/images/drink.png") },
   ];
 
   return (

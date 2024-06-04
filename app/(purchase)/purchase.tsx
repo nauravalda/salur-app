@@ -21,7 +21,26 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog";
 
-export default function Screen() {
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+
+type RootStackParamList = {
+  Home: undefined;
+  "(product)/productdetails": undefined;
+  Nearby: undefined;
+  Promos: undefined;
+  BestSeller: undefined;
+  "(purchase)/purchase-success": undefined;
+};
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "(purchase)/purchase-success"
+>;
+
+export default function PurchasePage() {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
   const [payment, setPayment] = React.useState("OVO");
   const [address, setAddress] = React.useState("Jl. Sukahaji Baru No.18");
   const [orderMethod, setOrderMethod] = React.useState("Gojek");
@@ -38,13 +57,17 @@ export default function Screen() {
     };
   }
 
+  const handleNavigateToSuccess = () => {
+    navigation.navigate("(purchase)/purchase-success");
+  };
+
   const orderData = [
     {
       id: 1,
       name: "Korean Garlic Bread Creamcheese",
       amount: 1,
       price: 3000,
-      image: require("../assets/images/food.png"),
+      image: require("../../assets/images/food.png"),
       available: true,
     },
     {
@@ -52,7 +75,7 @@ export default function Screen() {
       name: "Roti isi Coklat",
       amount: 2,
       price: 13000,
-      image: require("../assets/images/food.png"),
+      image: require("../../assets/images/food.png"),
       available: false,
     },
   ];
@@ -214,7 +237,7 @@ export default function Screen() {
               <View className="flex flex-row items-start gap-2 flex-1">
                 <Image
                   className="rounded-md"
-                  source={require("../assets/images/food.png")}
+                  source={require("../../assets/images/food.png")}
                   style={{ width: 64, height: 64 }}
                 />
                 <View className="flex flex-col justify-between gap-1 max-w-[50%] flex-grow">
@@ -337,10 +360,11 @@ export default function Screen() {
             </View>
           </View>
 
-          <Button className="rounded-full bg-[#D92F2F]">
-            <Text className="text-white font-bold">
-              Pilih Metode Pembayaran
-            </Text>
+          <Button
+            className="rounded-full bg-[#D92F2F]"
+            onPress={handleNavigateToSuccess}
+          >
+            <Text className="text-white font-bold">Bayar Sekarang</Text>
           </Button>
         </View>
       </ScrollView>
