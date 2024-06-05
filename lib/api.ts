@@ -7,6 +7,7 @@ import {
   getDocs,
   addDoc,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -109,5 +110,11 @@ const getSelf = async () => {
     return querySnapshot.docs[0].data();
   });
 };
+
+/***
+ * Purchase API
+ */
+// 1. Create Cart
+// 2. Purchase
 
 export { getAllFood, getFood, loginUser, registerUser, getSelf };
