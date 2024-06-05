@@ -109,10 +109,7 @@ function RootTabs() {
 function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
-        name="Home" 
-        component={HomeScreen} 
-        options={{}} />
+      <Stack.Screen name="Home" component={HomeScreen} options={{}} />
       <Stack.Screen
         name="Nearby"
         component={NearbyPage}
@@ -190,6 +187,7 @@ export default function RootLayout() {
           component={RootTabs}
           options={{
             headerShown: false,
+            title: "Home",
           }}
         />
         <Stack.Screen

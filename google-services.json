@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627135276395",
+    "project_id": "salur-app",
+    "storage_bucket": "salur-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627135276395:android:bcc7759eca98c3da7c582e",
+        "android_client_info": {
+          "package_name": "com.sirray03.starterbase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz5a8OcKmOwEA1CtBRqPWWfBI9Cz07m1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
