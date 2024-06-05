@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   // Text,
@@ -17,6 +17,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import { getAllFood } from "~/lib/api";
 
 const { width } = Dimensions.get("window");
 const IMG_HEIGHT = 286;
@@ -148,6 +149,15 @@ export default function BestSellerScreen() {
     };
   });
 
+  const [foodData, setFoodData] = React.useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllFood();
+      setFoodData(data);
+    };
+    fetchData();
+  }, []);
+
   const handleCardPress = (item: any) => {
     // Handle press event here
     navigation.navigate("(product)/productdetails", item);
@@ -161,10 +171,10 @@ export default function BestSellerScreen() {
           style={[styles.image, imageAnimatedStyle]}
         />
         <View style={{ backgroundColor: "#fff" }}>
-          {foodAndBeverages.map((food, index) => (
+          {foodData.map((food, index) => (
             <ItemCard
               key={index}
-              {...food}
+              {...(food as any)}
               onPress={() => handleCardPress(food)}
             />
           ))}

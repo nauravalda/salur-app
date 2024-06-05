@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   // Text,
@@ -17,6 +17,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import { getAllFood } from "~/lib/api";
 
 const { width } = Dimensions.get("window");
 const IMG_HEIGHT = 286;
@@ -171,6 +172,15 @@ export default function PromoScreen() {
     navigation.navigate("(product)/productdetails", item);
   };
 
+  const [foodData, setFoodData] = React.useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllFood();
+      setFoodData(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
@@ -179,10 +189,10 @@ export default function PromoScreen() {
           style={[styles.image, imageAnimatedStyle]}
         />
         <View style={{ backgroundColor: "#fff" }}>
-          {foodAndBeverages.map((food, index) => (
+          {foodData.map((food, index) => (
             <ItemCard
               key={index}
-              {...food}
+              {...(food as any)}
               onPress={() => handleCardPress(food)}
             />
           ))}
