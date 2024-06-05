@@ -78,7 +78,7 @@ const HomeScreen: React.FC = () => {
             fontWeight: "600",
             padding: 0,
             maxHeight: 25,
-            backgroundColor: "#f2f2f2"
+            backgroundColor: "#f2f2f2",
           }}
         />
       </View>
@@ -96,7 +96,7 @@ const HomeScreen: React.FC = () => {
             fontSize: 14,
             overflow: "scroll",
             padding: 0,
-            backgroundColor: "#ffffff"
+            backgroundColor: "#ffffff",
           }}
         />
         <Search size={20} color="#747474" />
@@ -105,8 +105,7 @@ const HomeScreen: React.FC = () => {
       <View className="flex flex-row justify-around my-4">
         <TouchableOpacity
           onPress={handleNavigateToNearby}
-          className="items-center"
-        >
+          className="items-center p-2 border-2 border-gray-500 rounded-lg">
           <Image
             source={require("../assets/images/sekitarmu.png")}
             className="w-20 h-20"
@@ -115,8 +114,7 @@ const HomeScreen: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleNavigateToPromos}
-          className="items-center"
-        >
+          className="items-center p-3 border-2 border-gray-500 rounded-lg">
           <Image
             source={require("../assets/images/promo.png")}
             className="w-20 h-20"
@@ -125,8 +123,7 @@ const HomeScreen: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleNavigateToBestSeller}
-          className="items-center"
-        >
+          className="items-center p-2 border-2 border-gray-500 rounded-lg">
           <Image
             source={require("../assets/images/terlaris.png")}
             className="w-20 h-20"

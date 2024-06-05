@@ -38,9 +38,21 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<
   "(purchase)/purchase-success"
 >;
 
-export default function PurchasePage() {
+export default function PurchasePage({
+  route,
+}: {
+  route: {
+    params: {
+      imageSource: { uri: string };
+      title: string;
+      discountedPrice: number;
+      quantity: number;
+    };
+  };
+}) {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-
+  const { imageSource, title, discountedPrice, quantity } = route.params;
+  
   const [payment, setPayment] = React.useState("OVO");
   const [address, setAddress] = React.useState("Jl. Sukahaji Baru No.18");
   const [orderMethod, setOrderMethod] = React.useState("Gojek");

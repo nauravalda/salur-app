@@ -44,7 +44,7 @@ const Stack = createNativeStackNavigator();
 
 function RootTabs() {
   return (
-    <Tab.Navigator initialRouteName="auth/login">
+    <Tab.Navigator initialRouteName="index">
       <Tab.Screen
         name="home"
         component={HomeStack}
@@ -109,7 +109,10 @@ function RootTabs() {
 function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} options={{}} />
+      <Stack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{}} />
       <Stack.Screen
         name="Nearby"
         component={NearbyPage}
@@ -196,7 +199,7 @@ export default function RootLayout() {
         />
         <Stack.Screen
           name="(purchase)/purchase"
-          component={PurchaseScreen} // Add PurchaseScreen component here
+          component={PurchaseScreen as any} // Add PurchaseScreen component here
           options={{ title: "Purchase" }} // Add any options you need
         />
         <Stack.Screen

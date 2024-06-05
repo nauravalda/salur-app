@@ -24,7 +24,7 @@ type RootStackParamList = {
   "(purchase)/purchase": {
     imageSource: { uri: string };
     title: string;
-    price: number;
+    discountedPrice: number;
     quantity: number;
   };
 };
@@ -78,7 +78,7 @@ export default function ProductDetailsScreen({
     navigation.navigate("(purchase)/purchase", {
       imageSource,
       title,
-      price,
+      discountedPrice,
       quantity,
     });
     handleCloseModal();

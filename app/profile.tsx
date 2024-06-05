@@ -61,6 +61,13 @@ export default function ProfileScreen() {
           </View>
         </View>
       </View>
+      <View>
+        <Button className="bg-red-500">
+          <Link href="/auth/login">
+            <Text className="font-bold">Logout</Text>
+          </Link>
+        </Button>
+      </View>
     </View>
   );
 }
