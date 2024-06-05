@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SplashScreen } from "expo-router";
+import { SplashScreen, useNavigation } from "expo-router";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { NAV_THEME } from "~/lib/constants";
 import {
@@ -13,6 +13,7 @@ import {
   Compass,
   ReceiptText,
   UserCircle,
+  LogOut,
 } from "lucide-react-native";
 import HomeScreen from "./index";
 import ProfileScreen from "./profile";
@@ -28,6 +29,9 @@ import AuthSuccessScreen from "./auth/successful";
 import PurchaseSuccessScreen from "./(purchase)/purchase-success";
 import MyOrderScreen from "./myorders";
 import { PortalHost } from "~/components/primitives/portal";
+import { getAuth, signOut } from "firebase/auth";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
+import { Button } from "~/components/ui/button";
 
 const LIGHT_THEME = {
   dark: false,
@@ -42,94 +46,23 @@ const DARK_THEME = {
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function RootTabs() {
-  return (
-    <Tab.Navigator initialRouteName="index">
-      <Tab.Screen
-        name="home"
-        component={HomeStack}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Compass size={size} color={color} />
-          ),
-          tabBarLabel: "Home",
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="refrigerator"
-        component={RefrigeratorScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Refrigerator size={size} color={color} />
-          ),
-          tabBarLabel: "Kulkasku",
-          headerTitle: "Kulkasku",
-          // headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="myorder"
-        component={MyOrderScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <ReceiptText size={size} color={color} />
-          ),
-          tabBarLabel: "Pesanan Saya",
-          headerTitle: "Pesanan Saya",
-          // headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <UserCircle size={size} color={color} />
-          ),
-          tabBarLabel: "Profile",
-          headerTitle: "Profile",
-          // headerShown: false,
-        }}
-      />
-      {/* <Tab.Screen
-        name="purchase"
-        component={PurchaseScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <ReceiptText size={size} color={color} />
-          ),
-          headerShown: false,
-        }}
-      /> */}
-    </Tab.Navigator>
-  );
-}
+type RootStackParamList = {
+  "auth/login": undefined;
+};
 
-function HomeStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} options={{}} />
-      <Stack.Screen
-        name="Nearby"
-        component={NearbyPage}
-        options={{ title: "Nearby" }}
-      />
-      <Stack.Screen
-        name="Promos"
-        component={PromosPage}
-        options={{ title: "Promos" }}
-      />
-      <Stack.Screen
-        name="BestSeller"
-        component={BestSellerPage}
-        options={{ title: "Best Sellers" }}
-      />
-    </Stack.Navigator>
-  );
-}
+type LogoutStackParamList = NativeStackNavigationProp<
+  RootStackParamList,
+  "auth/login"
+>;
 
 export default function RootLayout() {
+  const navigate = useNavigation<LogoutStackParamList>();
+  function handleLogout() {
+    signOut(getAuth()).then(() => {
+      navigate.navigate("auth/login");
+    });
+  }
+
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
 
@@ -158,36 +91,152 @@ export default function RootLayout() {
     return null;
   }
 
+  function HomeStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerRight: () => (
+              <Button
+                onPress={handleLogout}
+                variant="outline"
+                className="border-0"
+              >
+                <LogOut size={24} />
+              </Button>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Nearby"
+          component={NearbyPage}
+          options={{ title: "Nearby" }}
+        />
+        <Stack.Screen
+          name="Promos"
+          component={PromosPage}
+          options={{ title: "Promos" }}
+        />
+        <Stack.Screen
+          name="BestSeller"
+          component={BestSellerPage}
+          options={{ title: "Best Sellers" }}
+        />
+      </Stack.Navigator>
+    );
+  }
+
+  function RootTabs() {
+    return (
+      <Tab.Navigator initialRouteName="index">
+        <Tab.Screen
+          name="home"
+          component={HomeStack}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Compass size={size} color={color} />
+            ),
+            tabBarLabel: "Home",
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="refrigerator"
+          component={RefrigeratorScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Refrigerator size={size} color={color} />
+            ),
+            tabBarLabel: "Kulkasku",
+            headerTitle: "Kulkasku",
+            headerRight: () => (
+              <Button
+                onPress={handleLogout}
+                variant="outline"
+                className="border-0"
+              >
+                <LogOut size={24} />
+              </Button>
+            ),
+            // headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="myorder"
+          component={MyOrderScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <ReceiptText size={size} color={color} />
+            ),
+            tabBarLabel: "Pesanan Saya",
+            headerTitle: "Pesanan Saya",
+            headerRight: () => (
+              <Button
+                onPress={handleLogout}
+                className="border-0"
+                variant="outline"
+              >
+                <LogOut size={24} />
+              </Button>
+            ),
+            // headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <UserCircle size={size} color={color} />
+            ),
+            tabBarLabel: "Profile",
+            headerTitle: "Profile",
+            headerRight: () => (
+              <Button
+                onPress={handleLogout}
+                variant="outline"
+                className="border-0"
+              >
+                <LogOut size={24} />
+              </Button>
+            ),
+            // headerShown: false,
+          }}
+        />
+        {/* <Tab.Screen
+          name="purchase"
+          component={PurchaseScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <ReceiptText size={size} color={color} />
+            ),
+            headerShown: false,
+          }}
+        /> */}
+      </Tab.Navigator>
+    );
+  }
+
   return (
     <>
       <Stack.Navigator initialRouteName="auth/login">
-        <Stack.Screen
-          name="auth/login"
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="auth/register"
-          component={RegisterScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="auth/successful"
-          component={AuthSuccessScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
         <Stack.Screen
           name="index"
           component={RootTabs}
           options={{
             headerShown: false,
             title: "Home",
+            headerRight: () => (
+              <Button
+                onPress={handleLogout}
+                variant="outline"
+                className="border-0"
+              >
+                <LogOut size={24} />
+              </Button>
+            ),
           }}
         />
         <Stack.Screen
@@ -205,6 +254,27 @@ export default function RootLayout() {
           component={PurchaseSuccessScreen}
           options={{
             title: "Purchase Successful",
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="auth/register"
+          component={RegisterScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="auth/login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="auth/successful"
+          component={AuthSuccessScreen}
+          options={{
             headerShown: false,
           }}
         />

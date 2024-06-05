@@ -1,15 +1,30 @@
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
+import { FirebaseError } from "firebase/app";
 import * as React from "react";
 import { Image, Platform, ScrollView, TextInput, View } from "react-native";
 import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Separator } from "~/components/ui/separator";
 import { Text } from "~/components/ui/text";
+import { loginUser } from "~/lib/api";
 import { cn } from "~/lib/utils";
 
+type RootStackParamList = {
+  "auth/login": undefined;
+  "auth/register": undefined;
+  "auth/successful": undefined;
+};
+
+type LoginScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "auth/register"
+>;
+
 export default function LoginScreen() {
+  const navigation = useNavigation<LoginScreenNavigationProp>();
   const inputRef = React.useRef<TextInput>(null);
   const [err, setErr] = React.useState<string | null>(null);
 
@@ -43,6 +58,35 @@ export default function LoginScreen() {
 
   function onSubmitEditing() {
     setErr("Write more stuff to remove this error message.");
+  }
+
+  function handleLogin() {
+    if (!username || !password) {
+      setErr("Please fill in all fields.");
+      return;
+    }
+
+    loginUser(username, password)
+      .then(() => {
+        alert("Login successful!");
+        navigation.navigate("auth/successful");
+      })
+      .catch((error) => {
+        if (error.code === "auth/user-not-found") {
+          setErr("User not found.");
+          return;
+        }
+        if (error.code === "auth/invalid-credential") {
+          setErr("Wrong Email or Password.");
+          return;
+        }
+        if (error.code === "auth/too-many-requests") {
+          setErr("Too many login tries. Try again later.");
+          return;
+        }
+
+        setErr("An error occurred. Please try again.");
+      });
   }
 
   return (
@@ -97,12 +141,10 @@ export default function LoginScreen() {
         <Text className="text-sm text-gray-400 text-right">
           Forgot Password?
         </Text>
-        <Button className="bg-blue-400">
-          <Link href="/auth/successful">
-            <Text className="font-bold">Login</Text>
-          </Link>
+        <Button className="bg-blue-400" onPress={handleLogin}>
+          <Text className="font-bold">Login</Text>
         </Button>
-        <View className="flex flex-row justify-between items-center w-full">
+        {/* <View className="flex flex-row justify-between items-center w-full">
           <Separator className="w-1/3" />
           <Text className="text-gray-500 text-center font-semibold">
             Or login with
@@ -116,7 +158,7 @@ export default function LoginScreen() {
               style={{ width: 24, height: 24 }}
             />
           </Button>
-        </View>
+        </View> */}
         <Text className="text-center">
           Don't have an account?{" "}
           <Link href="/auth/register">

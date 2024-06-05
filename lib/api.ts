@@ -1,5 +1,25 @@
 import { db } from "~/config";
-import { doc, collection, getDoc, getDocs } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  query,
+  getDoc,
+  getDocs,
+  addDoc,
+  where,
+} from "firebase/firestore";
+import {
+  getAuth,
+  setPersistence,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  getReactNativePersistence,
+} from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+/***
+ * Food API
+ */
 
 /**
  * Get all food data from Firestore.
@@ -47,4 +67,47 @@ const getFood = async (id: string) => {
   return docRef.data();
 };
 
-export { getAllFood, getFood };
+/***
+ * Users API
+ */
+const loginUser = async (username: string, password: string) => {
+  const userQuery = await query(
+    collection(db, "users"),
+    where("username", "==", username)
+  );
+  const user: any = await getDocs(userQuery).then((querySnapshot) => {
+    return querySnapshot.docs[0].data();
+  });
+
+  const auth = getAuth();
+  await setPersistence(auth, getReactNativePersistence(AsyncStorage));
+  return signInWithEmailAndPassword(auth, user.email, password);
+};
+
+const registerUser = async (
+  email: string,
+  username: string,
+  password: string
+) => {
+  const auth = getAuth();
+  return createUserWithEmailAndPassword(auth, email, password).then((user) => {
+    return addDoc(collection(db, "users"), {
+      uid: user.user.uid,
+      email: user.user.email,
+      username,
+    });
+  });
+};
+
+const getSelf = async () => {
+  const user = getAuth().currentUser;
+  const userQuery = await query(
+    collection(db, "users"),
+    where("uid", "==", user?.uid)
+  );
+  return getDocs(userQuery).then((querySnapshot) => {
+    return querySnapshot.docs[0].data();
+  });
+};
+
+export { getAllFood, getFood, loginUser, registerUser, getSelf };

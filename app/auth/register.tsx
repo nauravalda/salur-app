@@ -1,15 +1,28 @@
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import * as React from "react";
 import { Image, Platform, ScrollView, TextInput, View } from "react-native";
 import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Separator } from "~/components/ui/separator";
 import { Text } from "~/components/ui/text";
+import { registerUser } from "~/lib/api";
 import { cn } from "~/lib/utils";
 
+type RootStackParamList = {
+  "auth/login": undefined;
+  "auth/register": undefined;
+};
+
+type LoginScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "auth/register"
+>;
+
 export default function RegisterScreen() {
+  const navigation = useNavigation<LoginScreenNavigationProp>();
   const inputRef = React.useRef<TextInput>(null);
   const [err, setErr] = React.useState<string | null>(null);
 
@@ -59,6 +72,22 @@ export default function RegisterScreen() {
 
   function onSubmitEditing() {
     setErr("Write more stuff to remove this error message.");
+  }
+
+  async function handleRegister() {
+    if (!email || !username || !password || !confirmPassword) {
+      setErr("All fields are required.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErr("Passwords do not match.");
+      return;
+    }
+    // Call the register API here
+    await registerUser(email, username, password).then(() => {
+      alert("Registration successful!");
+      navigation.navigate("auth/login");
+    });
   }
 
   return (
@@ -149,12 +178,10 @@ export default function RegisterScreen() {
           />
         </View>
         {err && <ErrorMessage msg={err} />}
-        <Button className="bg-blue-400">
-          <Link href="/auth/successful">
-            <Text className="font-bold">Register</Text>
-          </Link>
+        <Button className="bg-blue-400" onPress={handleRegister}>
+          <Text className="font-bold">Register</Text>
         </Button>
-        <View className="flex flex-row justify-between items-center w-full">
+        {/* <View className="flex flex-row justify-between items-center w-full">
           <Separator className="w-1/3" />
           <Text className="text-gray-500 text-center font-semibold">
             Or login with
@@ -168,7 +195,7 @@ export default function RegisterScreen() {
               style={{ width: 24, height: 24 }}
             />
           </Button>
-        </View>
+        </View> */}
         <Text className="text-center">
           Already have an account?{" "}
           <Link href="/auth/login">

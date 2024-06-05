@@ -4,15 +4,33 @@ import { Link } from "expo-router";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
 import { PencilIcon, Star } from "lucide-react-native";
+import { getAuth } from "firebase/auth";
+import { collection, getDoc } from "firebase/firestore";
+import { db } from "~/config";
+import { getSelf } from "~/lib/api";
 
 export default function ProfileScreen() {
+  const [user, setUser] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      getSelf().then((data) => {
+        setUser(data as any);
+      });
+    }
+  }, []);
+
   return (
     <View className="flex-1 items-center gap-5 mt-12 p-6">
       {/* Profile */}
       <View className="flex flex-col items-center gap-2">
         <Image
-          source={require("../assets/images/profile.png")}
-          style={{ width: 120, height: 120 }}
+          source={{
+            uri: `https://ui-avatars.com/api/?name=${user?.email ?? "Guest"}`,
+          }}
+          style={{ width: 120, height: 120, borderRadius: 100 }}
         />
         <View className="flex flex-row justify-between items-center bg-[#D92F2F] px-3 py-2 gap-4 rounded-full">
           <Star size={24} fill="white" color="none" />
@@ -23,7 +41,9 @@ export default function ProfileScreen() {
           <View aria-disabled className="bg-none p-2 rounded-full">
             <PencilIcon disabled size={16} color="none" />
           </View>
-          <Text className="font-bold text-center">claraafs</Text>
+          <Text className="font-bold text-center">
+            {user?.username ?? "Guest"}
+          </Text>
           <View className="bg-[#D92F2F] p-2 rounded-full">
             <PencilIcon size={16} color="white" />
           </View>
@@ -31,9 +51,8 @@ export default function ProfileScreen() {
 
         <View className="flex flex-col">
           <Text className="text-center text-sm text-gray-400">
-            claraafs@gemastik.com
+            {user?.email ?? ""}
           </Text>
-          <Text className="text-center text-sm text-gray-400">081234567</Text>
         </View>
       </View>
 
