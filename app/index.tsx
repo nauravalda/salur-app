@@ -78,6 +78,7 @@ const HomeScreen: React.FC = () => {
             fontWeight: "600",
             padding: 0,
             maxHeight: 25,
+            backgroundColor: "#f2f2f2"
           }}
         />
       </View>
@@ -95,6 +96,7 @@ const HomeScreen: React.FC = () => {
             fontSize: 14,
             overflow: "scroll",
             padding: 0,
+            backgroundColor: "#ffffff"
           }}
         />
         <Search size={20} color="#747474" />

@@ -40,7 +40,7 @@ const MyOrderCard: React.FC<MyOrderCardProps> = ({
           <Text className="text-lg font-semibold">{title}</Text>
           <View className="flex-row items-center mt-2">
             <Banknote size={16} color="black" />
-            <Text className="text-gray-200 ml-2">{date}</Text>
+            <Text className="text-black ml-2">{date}</Text>
           </View>
         </View>
       </View>
