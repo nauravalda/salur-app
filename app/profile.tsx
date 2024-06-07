@@ -28,7 +28,11 @@ export default function ProfileScreen() {
       <View className="flex flex-col items-center gap-2">
         <Image
           source={{
-            uri: `https://ui-avatars.com/api/?name=${user?.email ?? "Guest"}`,
+            uri: `https://ui-avatars.com/api/?name=${
+              user?.username ?? "G"
+            }&background=${
+              user?.username ? "d92f2f" : "random"
+            }&color=fff&size=128&rounded=true&bold=true&length=1&font-size=0.33`,
           }}
           style={{ width: 120, height: 120, borderRadius: 100 }}
         />
