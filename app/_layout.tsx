@@ -32,6 +32,7 @@ import { PortalHost } from "~/components/primitives/portal";
 import { getAuth, signOut } from "firebase/auth";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import { Button } from "~/components/ui/button";
+import { Text } from "~/components/ui/text";
 
 const LIGHT_THEME = {
   dark: false,
@@ -48,6 +49,8 @@ const Stack = createNativeStackNavigator();
 
 type RootStackParamList = {
   "auth/login": undefined;
+  "auth/register": undefined;
+  index: undefined;
 };
 
 type LogoutStackParamList = NativeStackNavigationProp<
@@ -56,11 +59,24 @@ type LogoutStackParamList = NativeStackNavigationProp<
 >;
 
 export default function RootLayout() {
+  const [user, setUser] = React.useState<any>(null);
   const navigate = useNavigation<LogoutStackParamList>();
   function handleLogout() {
     signOut(getAuth()).then(() => {
-      navigate.navigate("auth/login");
+      const state = navigate.getState();
+      navigate.reset({
+        ...state,
+      });
+      navigate.navigate("index");
     });
+  }
+
+  function navigateToLogin() {
+    const state = navigate.getState();
+    navigate.reset({
+      ...state,
+    });
+    navigate.navigate("auth/login");
   }
 
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
@@ -68,6 +84,13 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     (async () => {
+      const auth = getAuth();
+      if (auth.currentUser) {
+        setUser(auth.currentUser);
+      } else {
+        setUser(null);
+      }
+
       const theme = await AsyncStorage.getItem("theme");
       if (Platform.OS === "web") {
         document.documentElement.classList.add("bg-background");
@@ -98,15 +121,24 @@ export default function RootLayout() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerRight: () => (
-              <Button
-                onPress={handleLogout}
-                variant="outline"
-                className="border-0"
-              >
-                <LogOut size={24} color="#EF4444" />
-              </Button>
-            ),
+            headerRight: () =>
+              user ? (
+                <Button
+                  onPress={handleLogout}
+                  variant="outline"
+                  className="border-0"
+                >
+                  <LogOut size={24} color="#EF4444" />
+                </Button>
+              ) : (
+                <Button
+                  onPress={navigateToLogin}
+                  variant="outline"
+                  className="border-0"
+                >
+                  <Text className="text-[#EF4444] font-semibold">Sign in</Text>
+                </Button>
+              ),
           }}
         />
         <Stack.Screen
@@ -138,61 +170,99 @@ export default function RootLayout() {
             tabBarIcon: ({ color, size }) => (
               <Compass size={size} color={color} />
             ),
+            unmountOnBlur: true,
             tabBarLabel: "Home",
             headerShown: false,
-            headerRight: () => (
-              <Button
-                onPress={handleLogout}
-                variant="outline"
-                className="border-0"
-              >
-                <LogOut size={24} color="#EF4444" />
-              </Button>
-            ),
+            headerRight: () =>
+              user ? (
+                <Button
+                  onPress={handleLogout}
+                  variant="outline"
+                  className="border-0"
+                >
+                  <LogOut size={24} color="#EF4444" />
+                </Button>
+              ) : (
+                <Button
+                  onPress={navigateToLogin}
+                  variant="outline"
+                  className="border-0"
+                >
+                  <Text className="text-[#EF4444] font-semibold">Sign in</Text>
+                </Button>
+              ),
           }}
         />
-        <Tab.Screen
-          name="refrigerator"
-          component={RefrigeratorScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Refrigerator size={size} color={color} />
-            ),
-            tabBarLabel: "Kulkasku",
-            headerTitle: "Kulkasku",
-            headerRight: () => (
-              <Button
-                onPress={handleLogout}
-                variant="outline"
-                className="border-0"
-              >
-                <LogOut size={24} color="#EF4444" />
-              </Button>
-            ),
-            // headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="myorder"
-          component={MyOrderScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <ReceiptText size={size} color={color} />
-            ),
-            tabBarLabel: "Pesanan Saya",
-            headerTitle: "Pesanan Saya",
-            headerRight: () => (
-              <Button
-                onPress={handleLogout}
-                variant="outline"
-                className="border-0"
-              >
-                <LogOut size={24} color="#EF4444" />
-              </Button>
-            ),
-            // headerShown: false,
-          }}
-        />
+        {user && (
+          <Tab.Screen
+            name="refrigerator"
+            component={RefrigeratorScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Refrigerator size={size} color={color} />
+              ),
+              tabBarLabel: "Kulkasku",
+              headerTitle: "Kulkasku",
+              unmountOnBlur: true,
+              headerRight: () =>
+                user ? (
+                  <Button
+                    onPress={handleLogout}
+                    variant="outline"
+                    className="border-0"
+                  >
+                    <LogOut size={24} color="#EF4444" />
+                  </Button>
+                ) : (
+                  <Button
+                    onPress={navigateToLogin}
+                    variant="outline"
+                    className="border-0"
+                  >
+                    <Text className="text-[#EF4444] font-semibold">
+                      Sign in
+                    </Text>
+                  </Button>
+                ),
+              // headerShown: false,
+            }}
+          />
+        )}
+        {user && (
+          <Tab.Screen
+            name="myorder"
+            component={MyOrderScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <ReceiptText size={size} color={color} />
+              ),
+              tabBarLabel: "Pesanan Saya",
+              headerTitle: "Pesanan Saya",
+              unmountOnBlur: true,
+              headerRight: () =>
+                user ? (
+                  <Button
+                    onPress={handleLogout}
+                    variant="outline"
+                    className="border-0"
+                  >
+                    <LogOut size={24} color="#EF4444" />
+                  </Button>
+                ) : (
+                  <Button
+                    onPress={navigateToLogin}
+                    variant="outline"
+                    className="border-0"
+                  >
+                    <Text className="text-[#EF4444] font-semibold">
+                      Sign in
+                    </Text>
+                  </Button>
+                ),
+              // headerShown: false,
+            }}
+          />
+        )}
         <Tab.Screen
           name="profile"
           component={ProfileScreen}
@@ -201,16 +271,26 @@ export default function RootLayout() {
               <UserCircle size={size} color={color} />
             ),
             tabBarLabel: "Profile",
+            unmountOnBlur: true,
             headerTitle: "Profile",
-            headerRight: () => (
-              <Button
-                onPress={handleLogout}
-                variant="outline"
-                className="border-0"
-              >
-                <LogOut size={24} />
-              </Button>
-            ),
+            headerRight: () =>
+              user ? (
+                <Button
+                  onPress={handleLogout}
+                  variant="outline"
+                  className="border-0"
+                >
+                  <LogOut size={24} color="#EF4444" />
+                </Button>
+              ) : (
+                <Button
+                  onPress={navigateToLogin}
+                  variant="outline"
+                  className="border-0"
+                >
+                  <Text className="text-[#EF4444] font-semibold">Sign in</Text>
+                </Button>
+              ),
             // headerShown: false,
           }}
         />
@@ -237,15 +317,6 @@ export default function RootLayout() {
           options={{
             headerShown: false,
             title: "Home",
-            headerRight: () => (
-              <Button
-                onPress={handleLogout}
-                variant="outline"
-                className="border-0"
-              >
-                <LogOut size={24} />
-              </Button>
-            ),
           }}
         />
         <Stack.Screen
@@ -270,14 +341,16 @@ export default function RootLayout() {
           name="auth/register"
           component={RegisterScreen}
           options={{
-            headerShown: false,
+            title: "Sign up",
+            headerShown: true,
           }}
         />
         <Stack.Screen
           name="auth/login"
           component={LoginScreen}
           options={{
-            headerShown: false,
+            title: "Sign in",
+            headerShown: true,
           }}
         />
         <Stack.Screen
