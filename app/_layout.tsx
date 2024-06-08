@@ -59,7 +59,7 @@ type LogoutStackParamList = NativeStackNavigationProp<
 >;
 
 export default function RootLayout() {
-  const [user, setUser] = React.useState<any>(null);
+  const user = getAuth();
   const navigate = useNavigation<LogoutStackParamList>();
   function handleLogout() {
     signOut(getAuth()).then(() => {
@@ -84,12 +84,12 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     (async () => {
-      const auth = getAuth();
-      if (auth.currentUser) {
-        setUser(auth.currentUser);
-      } else {
-        setUser(null);
-      }
+      // const auth = getAuth();
+      // if (auth.currentUser) {
+      //   setUser(auth.currentUser);
+      // } else {
+      //   setUser(null);
+      // }
 
       const theme = await AsyncStorage.getItem("theme");
       if (Platform.OS === "web") {

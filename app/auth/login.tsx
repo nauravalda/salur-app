@@ -84,8 +84,11 @@ export default function LoginScreen() {
           setErr("Too many login tries. Try again later.");
           return;
         }
-
-        setErr("An error occurred. Please try again.");
+        if (error.message === "Cannot read property 'data' of undefined") {
+          setErr("User not found. Please check your credentials.");
+          return;
+        }
+        setErr(error.message || "An error occurred. Please try again.");
       });
   }
 

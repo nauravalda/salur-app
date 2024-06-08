@@ -96,6 +96,10 @@ const registerUser = async (
       uid: user.user.uid,
       email: user.user.email,
       username,
+      peringkat: "Warrior",
+      impactReduce: 0,
+      impactSaving: 0,
+      impactTotal: 0,
     });
   });
 };
