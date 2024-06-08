@@ -108,6 +108,7 @@ const foodAndBeverages = [
 type RootStackParamList = {
   "(product)/productdetails": {
     imageSource: { uri: string };
+    id: string;
     title: string;
     distance: string;
     price: number;
@@ -151,7 +152,7 @@ export default function NearbyScreen() {
 
   const handleCardPress = (item: any) => {
     // Handle press event here
-    console.log(item)
+    console.log(item);
     navigation.navigate("(product)/productdetails", item);
   };
 
@@ -176,7 +177,7 @@ export default function NearbyScreen() {
           {foodData.map((food, index) => (
             <ItemCard
               key={index}
-              {...food as any}
+              {...(food as any)}
               onPress={() => handleCardPress(food)}
             />
           ))}
