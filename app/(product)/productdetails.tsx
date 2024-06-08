@@ -125,8 +125,19 @@ export default function ProductDetailsScreen({
         </View>
       </View>
 
-      <Modal visible={showModal} animationType="slide" transparent>
-        <View className="flex-1 bg-black bg-opacity-50 justify-end">
+      <Modal 
+        visible={showModal} 
+        animationType="slide" 
+        transparent
+        onRequestClose={() => {
+          setShowModal(!showModal);
+        }}
+      >
+        <View className="flex-1 justify-end">
+          <View
+            className="absolute bg-black opacity-75 w-full h-full"
+            onTouchStart={handleCloseModal}
+          />
           <View className="bg-white rounded-t-lg p-4">
             <View className="flex-row items-center justify-between mb-4">
               <Text className="text-lg font-semibold">Jumlah</Text>
@@ -167,7 +178,7 @@ export default function ProductDetailsScreen({
                 })
               }
               className="bg-red-600 rounded-lg py-3"
-              activeOpacity={0.1}
+              activeOpacity={0.7}
             >
               <Text className="text-white text-center font-semibold">
                 Tambahkan ({quantity} item)
