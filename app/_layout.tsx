@@ -104,7 +104,7 @@ export default function RootLayout() {
                 variant="outline"
                 className="border-0"
               >
-                <LogOut size={24} />
+                <LogOut size={24} color="#EF4444" />
               </Button>
             ),
           }}
@@ -140,6 +140,15 @@ export default function RootLayout() {
             ),
             tabBarLabel: "Home",
             headerShown: false,
+            headerRight: () => (
+              <Button
+                onPress={handleLogout}
+                variant="outline"
+                className="border-0"
+              >
+                <LogOut size={24} color="#EF4444" />
+              </Button>
+            ),
           }}
         />
         <Tab.Screen
@@ -157,7 +166,7 @@ export default function RootLayout() {
                 variant="outline"
                 className="border-0"
               >
-                <LogOut size={24} />
+                <LogOut size={24} color="#EF4444" />
               </Button>
             ),
             // headerShown: false,
@@ -175,10 +184,10 @@ export default function RootLayout() {
             headerRight: () => (
               <Button
                 onPress={handleLogout}
-                className="border-0"
                 variant="outline"
+                className="border-0"
               >
-                <LogOut size={24} />
+                <LogOut size={24} color="#EF4444" />
               </Button>
             ),
             // headerShown: false,
