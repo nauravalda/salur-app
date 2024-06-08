@@ -24,6 +24,7 @@ type RootStackParamList = {
   "(purchase)/purchase": {
     imageSource: { uri: string };
     title: string;
+    price: number;
     discountedPrice: number;
     quantity: number;
   };
@@ -69,19 +70,20 @@ export default function ProductDetailsScreen({
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setShowModal(false);  
     setNotes("");
   };
 
-  const handleAddToCartConfirm = () => {
-    console.log("Add to cart", quantity, notes, price, discountedPrice, title);
-    navigation.navigate("(purchase)/purchase", {
-      imageSource,
-      title,
-      discountedPrice,
-      quantity,
-    });
+  const handleAddToCartConfirm = (item: {
+    imageSource: { uri: string };
+    title: string;
+    price: number;
+    discountedPrice: number;
+    quantity: number;
+  }) => {
+    console.log(item);
     handleCloseModal();
+    navigation.navigate("(purchase)/purchase", item);
   };
 
   return (
@@ -149,9 +151,9 @@ export default function ProductDetailsScreen({
               multiline
             />
             <TouchableOpacity
-              onPress={handleAddToCartConfirm}
+              onPress={() => handleAddToCartConfirm({ imageSource, title, price, discountedPrice, quantity })}
               className="bg-red-600 rounded-lg py-3"
-              activeOpacity={0.7}
+              activeOpacity={0.1}
             >
               <Text className="text-white text-center font-semibold">
                 Tambahkan ({quantity} item)
