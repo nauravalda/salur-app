@@ -15,6 +15,7 @@ type RootStackParamList = {
   Home: undefined;
   "(product)/productdetails": {
     imageSource: { uri: string };
+    id: string;
     title: string;
     distance: string;
     price: number;
@@ -23,6 +24,7 @@ type RootStackParamList = {
   };
   "(purchase)/purchase": {
     imageSource: { uri: string };
+    id: string;
     title: string;
     price: number;
     discountedPrice: number;
@@ -41,6 +43,7 @@ export default function ProductDetailsScreen({
   route: {
     params: {
       imageSource: { uri: string };
+      id: string;
       title: string;
       price: number;
       discountedPrice: number;
@@ -49,7 +52,8 @@ export default function ProductDetailsScreen({
   };
 }) {
   const navigation = useNavigation<ProductDetailsNavigationProp>();
-  const { imageSource, title, price, discountedPrice, status } = route.params;
+  const { imageSource, id, title, price, discountedPrice, status } =
+    route.params;
 
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
@@ -70,12 +74,13 @@ export default function ProductDetailsScreen({
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);  
+    setShowModal(false);
     setNotes("");
   };
 
   const handleAddToCartConfirm = (item: {
     imageSource: { uri: string };
+    id: string;
     title: string;
     price: number;
     discountedPrice: number;
@@ -151,7 +156,16 @@ export default function ProductDetailsScreen({
               multiline
             />
             <TouchableOpacity
-              onPress={() => handleAddToCartConfirm({ imageSource, title, price, discountedPrice, quantity })}
+              onPress={() =>
+                handleAddToCartConfirm({
+                  imageSource,
+                  id,
+                  title,
+                  price,
+                  discountedPrice,
+                  quantity,
+                })
+              }
               className="bg-red-600 rounded-lg py-3"
               activeOpacity={0.1}
             >

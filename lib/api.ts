@@ -42,7 +42,13 @@ const getAllFood = async () => {
   const querySnapshot = await getDocs(collection(db, "fnb"));
   const foodData: any = [];
   querySnapshot.forEach((doc) => {
-    foodData.push(doc.data());
+    const id = doc.id;
+    const data = {
+      id,
+      ...doc.data(),
+    };
+
+    foodData.push(data);
   });
   return foodData;
 };
@@ -118,7 +124,58 @@ const getSelf = async () => {
 /***
  * Purchase API
  */
-// 1. Create Cart
-// 2. Purchase
+const makePurchase = async ({
+  foodId,
+  address,
+  addressDetail,
+  orderMethod,
+  paymentMethod,
+  total,
+  quantity,
+}: any) => {
+  const user = getAuth().currentUser;
+  const userQuery = await query(
+    collection(db, "users"),
+    where("uid", "==", user?.uid)
+  );
 
-export { getAllFood, getFood, loginUser, registerUser, getSelf };
+  const userDoc = await getDocs(userQuery).then((querySnapshot) => {
+    return querySnapshot.docs[0];
+  });
+
+  const foodDoc = await getDoc(doc(db, "fnb", foodId));
+  const foodData = foodDoc.data();
+
+  return addDoc(collection(db, "order"), {
+    user: userDoc.ref,
+    address,
+    addressDetail,
+    status: "Sedang Diantar",
+    estimasiTiba: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    orderMethod,
+    paymentMethod,
+    total,
+    quantity,
+    fnb: foodDoc.ref,
+  });
+};
+
+const getAllOrder = async (userId: any) => {
+  const orderQuery = await query(
+    collection(db, "order"),
+    where("user", "==", userId)
+  );
+
+  const orderRef = await getDocs(orderQuery).then((querySnapshot) => {
+    return querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+  });
+
+  return orderRef;
+};
+
+export { getAllFood, getFood, loginUser, registerUser, getSelf, makePurchase };

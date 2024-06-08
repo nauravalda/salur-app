@@ -23,6 +23,7 @@ import {
 
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import { makePurchase } from "~/lib/api";
 
 type RootStackParamList = {
   Home: undefined;
@@ -44,6 +45,7 @@ export default function PurchasePage({
   route: {
     params: {
       imageSource: { uri: string };
+      id: string;
       title: string;
       price: number;
       discountedPrice: number;
@@ -52,10 +54,12 @@ export default function PurchasePage({
   };
 }) {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { imageSource, title, price, discountedPrice, quantity } = route.params;
-  
+  const { imageSource, id, title, price, discountedPrice, quantity } =
+    route.params;
+
   const [payment, setPayment] = React.useState("OVO");
   const [address, setAddress] = React.useState("Jl. Sukahaji Baru No.18");
+  const [addressDetail, setAddressDetail] = React.useState("");
   const [finalQuantity, setFinalQuantity] = React.useState(quantity);
   const [orderMethod, setOrderMethod] = React.useState("Gojek");
 
@@ -97,11 +101,37 @@ export default function PurchasePage({
   function onChangeAddress(text: string) {
     setAddress(text);
   }
-  
+
   const originalPrice = price * finalQuantity;
   const originalPriceGrand = originalPrice + 4000;
   const subtotal = discountedPrice * finalQuantity;
   const grandTotal = subtotal + 4000;
+
+  async function handlePurchase({
+    id,
+    address,
+    addressDetail,
+    orderMethod,
+    payment: paymentMethod,
+    grandTotal: total,
+    finalQuantity: quantity,
+  }: any) {
+    const data = {
+      foodId: id,
+      address,
+      addressDetail,
+      orderMethod,
+      paymentMethod,
+      total,
+      quantity,
+    };
+
+    // Call the purchase API here
+    await makePurchase(data).then((doc) => {
+      console.log(doc);
+      handleNavigateToSuccess();
+    });
+  }
 
   return (
     <View className="flex-1">
@@ -166,6 +196,8 @@ export default function PurchasePage({
               />
               <Input
                 placeholder="Tambahkan Detail Alamat"
+                value={addressDetail}
+                onChangeText={setAddressDetail}
                 style={{
                   width: "90%",
                   borderWidth: 0,
@@ -249,18 +281,18 @@ export default function PurchasePage({
           <Text className="font-bold">Pesanan</Text>
           {/* Card */}
           {/* {orderData.map((item) => ( */}
-            <View
-              // key={item.id}
-              className="flex flex-row justify-between items-start"
-            >
-              <View className="flex flex-row items-start gap-2 flex-1">
-                <Image
-                  className="rounded-md"
-                  source={imageSource}
-                  style={{ width: 64, height: 64 }}
-                />
-                <View className="flex flex-col justify-between gap-1 max-w-[50%] flex-grow">
-                  {/* <Badge variant="outline" className="rounded-md max-w-[60%]">
+          <View
+            // key={item.id}
+            className="flex flex-row justify-between items-start"
+          >
+            <View className="flex flex-row items-start gap-2 flex-1">
+              <Image
+                className="rounded-md"
+                source={imageSource}
+                style={{ width: 64, height: 64 }}
+              />
+              <View className="flex flex-col justify-between gap-1 max-w-[50%] flex-grow">
+                {/* <Badge variant="outline" className="rounded-md max-w-[60%]">
                     <Text
                       className={
                         item.available ? "text-turquoise-600" : "text-red-600"
@@ -269,53 +301,52 @@ export default function PurchasePage({
                       {item.available ? "Tersedia" : "Habis"}
                     </Text>
                   </Badge> */}
-                  <Text className="text-xs text-ellipsis" numberOfLines={1}>
-                    <Text className="text-sm font-bold">{finalQuantity}x </Text>
-                    {title}
-                  </Text>
-                </View>
-              </View>
-              <View className="flex flex-col justify-between items-end">
-                <Text className="font-bold">
-                  Rp
-                  {discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                <Text className="text-xs text-ellipsis" numberOfLines={1}>
+                  <Text className="text-sm font-bold">{finalQuantity}x </Text>
+                  {title}
                 </Text>
-                <View className="flex flex-row gap-2 items-center justify-end">
-                  <Text className="text-red-600 text-sm">Delete</Text>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Text className="text-turquoise-700 text-sm">
-                        Edit Item
-                      </Text>
-                    </DialogTrigger>
-                    <DialogContent className="w-[90vw]">
-                      <DialogHeader>
-                        <DialogTitle className="font-bold">
-                          Edit Item
-                        </DialogTitle>
-                        <DialogDescription>Ubah jumlah item</DialogDescription>
-                      </DialogHeader>
-                      <Input
-                        placeholder={String(finalQuantity)}
-                        onChangeText={(e) => {
-                          setFinalQuantity(Number(e));
-                          // Use the updatedQuantity variable for further processing
-                        }}
-                        style={{
-                          // width: "90%",
-                          // borderWidth: 0,
-                          fontSize: 14,
-                          overflow: "scroll",
-                          // fontWeight: "600",
-                          // padding: 0,
-                          // maxHeight: 25,
-                        }}
-                      />
-                    </DialogContent>
-                  </Dialog>
-                </View>
               </View>
             </View>
+            <View className="flex flex-col justify-between items-end">
+              <Text className="font-bold">
+                Rp
+                {discountedPrice
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </Text>
+              <View className="flex flex-row gap-2 items-center justify-end">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Text className="text-turquoise-700 text-sm">
+                      Edit Item
+                    </Text>
+                  </DialogTrigger>
+                  <DialogContent className="w-[90vw]">
+                    <DialogHeader>
+                      <DialogTitle className="font-bold">Edit Item</DialogTitle>
+                      <DialogDescription>Ubah jumlah item</DialogDescription>
+                    </DialogHeader>
+                    <Input
+                      placeholder={String(finalQuantity)}
+                      onChangeText={(e) => {
+                        setFinalQuantity(Number(e));
+                        // Use the updatedQuantity variable for further processing
+                      }}
+                      style={{
+                        // width: "90%",
+                        // borderWidth: 0,
+                        fontSize: 14,
+                        overflow: "scroll",
+                        // fontWeight: "600",
+                        // padding: 0,
+                        // maxHeight: 25,
+                      }}
+                    />
+                  </DialogContent>
+                </Dialog>
+              </View>
+            </View>
+          </View>
           {/* ))} */}
         </View>
 
@@ -360,10 +391,9 @@ export default function PurchasePage({
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </Text>
-                <Text className="text-red-700">Rp
-                  {subtotal
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                <Text className="text-red-700">
+                  Rp
+                  {subtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </Text>
               </View>
             </View>
@@ -386,17 +416,26 @@ export default function PurchasePage({
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </Text>
-              <Text className="font-bold text-xl">Rp
-                {grandTotal
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              <Text className="font-bold text-xl">
+                Rp
+                {grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </Text>
             </View>
           </View>
 
           <Button
             className="rounded-full bg-[#D92F2F]"
-            onPress={handleNavigateToSuccess}
+            onPress={() =>
+              handlePurchase({
+                id,
+                address,
+                addressDetail,
+                orderMethod,
+                payment,
+                grandTotal,
+                finalQuantity,
+              })
+            }
           >
             <Text className="text-white font-bold">Bayar Sekarang</Text>
           </Button>
