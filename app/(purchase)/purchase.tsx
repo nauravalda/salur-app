@@ -20,10 +20,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
-
+import { getAuth } from "firebase/auth";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { makePurchase } from "~/lib/api";
+import { getSelf, makePurchase } from "~/lib/api";
 
 type RootStackParamList = {
   Home: undefined;
@@ -32,6 +32,7 @@ type RootStackParamList = {
   Promos: undefined;
   BestSeller: undefined;
   "(purchase)/purchase-success": undefined;
+  "auth/login": undefined;
 };
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
@@ -62,6 +63,14 @@ export default function PurchasePage({
   const [addressDetail, setAddressDetail] = React.useState("");
   const [finalQuantity, setFinalQuantity] = React.useState(quantity);
   const [orderMethod, setOrderMethod] = React.useState("Gojek");
+
+  React.useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (!user) {
+      navigation.navigate("auth/login");
+    }
+  }, []);
 
   function onLabelPress(label: string) {
     return () => {
