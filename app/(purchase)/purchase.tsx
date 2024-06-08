@@ -45,16 +45,18 @@ export default function PurchasePage({
     params: {
       imageSource: { uri: string };
       title: string;
+      price: number;
       discountedPrice: number;
       quantity: number;
     };
   };
 }) {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { imageSource, title, discountedPrice, quantity } = route.params;
+  const { imageSource, title, price, discountedPrice, quantity } = route.params;
   
   const [payment, setPayment] = React.useState("OVO");
   const [address, setAddress] = React.useState("Jl. Sukahaji Baru No.18");
+  const [finalQuantity, setFinalQuantity] = React.useState(quantity);
   const [orderMethod, setOrderMethod] = React.useState("Gojek");
 
   function onLabelPress(label: string) {
@@ -95,6 +97,11 @@ export default function PurchasePage({
   function onChangeAddress(text: string) {
     setAddress(text);
   }
+  
+  const originalPrice = price * finalQuantity;
+  const originalPriceGrand = originalPrice + 4000;
+  const subtotal = discountedPrice * finalQuantity;
+  const grandTotal = subtotal + 4000;
 
   return (
     <View className="flex-1">
@@ -241,19 +248,19 @@ export default function PurchasePage({
         <View className="flex flex-col gap-4 w-full p-6 bg-white">
           <Text className="font-bold">Pesanan</Text>
           {/* Card */}
-          {orderData.map((item) => (
+          {/* {orderData.map((item) => ( */}
             <View
-              key={item.id}
+              // key={item.id}
               className="flex flex-row justify-between items-start"
             >
               <View className="flex flex-row items-start gap-2 flex-1">
                 <Image
                   className="rounded-md"
-                  source={require("../../assets/images/food.png")}
+                  source={imageSource}
                   style={{ width: 64, height: 64 }}
                 />
                 <View className="flex flex-col justify-between gap-1 max-w-[50%] flex-grow">
-                  <Badge variant="outline" className="rounded-md max-w-[60%]">
+                  {/* <Badge variant="outline" className="rounded-md max-w-[60%]">
                     <Text
                       className={
                         item.available ? "text-turquoise-600" : "text-red-600"
@@ -261,17 +268,17 @@ export default function PurchasePage({
                     >
                       {item.available ? "Tersedia" : "Habis"}
                     </Text>
-                  </Badge>
+                  </Badge> */}
                   <Text className="text-xs text-ellipsis" numberOfLines={1}>
-                    <Text className="text-sm font-bold">{item.amount}x </Text>
-                    {item.name}
+                    <Text className="text-sm font-bold">{finalQuantity}x </Text>
+                    {title}
                   </Text>
                 </View>
               </View>
               <View className="flex flex-col justify-between items-end">
                 <Text className="font-bold">
                   Rp
-                  {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  {discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </Text>
                 <View className="flex flex-row gap-2 items-center justify-end">
                   <Text className="text-red-600 text-sm">Delete</Text>
@@ -289,9 +296,10 @@ export default function PurchasePage({
                         <DialogDescription>Ubah jumlah item</DialogDescription>
                       </DialogHeader>
                       <Input
-                        placeholder={String(item.amount)}
+                        placeholder={String(finalQuantity)}
                         onChangeText={(e) => {
-                          item.amount = Number(e);
+                          setFinalQuantity(Number(e));
+                          // Use the updatedQuantity variable for further processing
                         }}
                         style={{
                           // width: "90%",
@@ -308,7 +316,7 @@ export default function PurchasePage({
                 </View>
               </View>
             </View>
-          ))}
+          {/* ))} */}
         </View>
 
         {/* Metode Pembayaran */}
@@ -347,9 +355,16 @@ export default function PurchasePage({
               <Text className="text-muted-foreground">Subtotal</Text>
               <View className="flex flex-row gap-2">
                 <Text className="text-muted-foreground line-through">
-                  Rp32.000
+                  Rp
+                  {originalPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </Text>
-                <Text className="text-red-700">Rp16.000</Text>
+                <Text className="text-red-700">Rp
+                  {subtotal
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                </Text>
               </View>
             </View>
             <View className="flex flex-row justify-between items-center">
@@ -366,9 +381,16 @@ export default function PurchasePage({
             <Text className="text-muted-foreground text-sm">Grand Total</Text>
             <View className="flex flex-col gap-1">
               <Text className="text-muted-foreground line-through text-right">
-                Rp36.000
+                Rp
+                {originalPriceGrand
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </Text>
-              <Text className="font-bold text-xl">Rp20.000</Text>
+              <Text className="font-bold text-xl">Rp
+                {grandTotal
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </Text>
             </View>
           </View>
 
