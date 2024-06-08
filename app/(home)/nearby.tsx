@@ -151,6 +151,7 @@ export default function NearbyScreen() {
 
   const handleCardPress = (item: any) => {
     // Handle press event here
+    console.log(item)
     navigation.navigate("(product)/productdetails", item);
   };
 
