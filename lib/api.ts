@@ -178,4 +178,12 @@ const getAllOrder = async (userId: any) => {
   return orderRef;
 };
 
-export { getAllFood, getFood, loginUser, registerUser, getSelf, makePurchase };
+export {
+  getAllFood,
+  getFood,
+  loginUser,
+  registerUser,
+  getSelf,
+  makePurchase,
+  getAllOrder,
+};
