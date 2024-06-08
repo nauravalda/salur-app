@@ -1,7 +1,7 @@
 import { Link, useNavigation } from "expo-router";
 import { FirebaseError } from "firebase/app";
 import * as React from "react";
-import { Image, Platform, ScrollView, TextInput, View } from "react-native";
+import { Image, Platform, ScrollView, TextInput, View, BackHandler } from "react-native";
 import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import { Button } from "~/components/ui/button";
@@ -11,11 +11,13 @@ import { Separator } from "~/components/ui/separator";
 import { Text } from "~/components/ui/text";
 import { loginUser } from "~/lib/api";
 import { cn } from "~/lib/utils";
+import { useFocusEffect } from '@react-navigation/native';
 
 type RootStackParamList = {
   "auth/login": undefined;
   "auth/register": undefined;
   "auth/successful": undefined;
+  "index": undefined;
 };
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<
@@ -88,6 +90,20 @@ export default function LoginScreen() {
         setErr("An error occurred. Please try again.");
       });
   }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigation.navigate("index");
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [navigation])
+  );
 
   return (
     <ScrollView contentContainerClassName="flex-1 justify-center items-center">
