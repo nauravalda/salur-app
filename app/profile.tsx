@@ -14,7 +14,10 @@ type RootStackParamList = {
   "auth/login": undefined;
 };
 
-type ProfileScreenProp = NativeStackNavigationProp<RootStackParamList, "profile">;
+type ProfileScreenProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "profile"
+>;
 
 export default function ProfileScreen() {
   const navigation = useNavigation<ProfileScreenProp>();
@@ -39,25 +42,29 @@ export default function ProfileScreen() {
             source={{
               uri: `https://ui-avatars.com/api/?name=${
                 user?.username ?? "G"
-              }&background=${user?.username ? "d92f2f" : "random"}&color=fff&size=128&rounded=true&bold=true&length=1&font-size=0.33`,
+              }&background=${
+                user?.username ? "d92f2f" : "random"
+              }&color=fff&size=128&rounded=true&bold=true&length=1&font-size=0.33`,
             }}
             style={{ width: 120, height: 120, borderRadius: 100 }}
           />
           <View className="flex flex-row justify-between items-center bg-[#D92F2F] px-3 py-2 gap-4 rounded-full">
             <Star size={24} fill="white" color="none" />
-            <Text className="text-center text-white font-bold">{user?.peringkat}</Text>
-            <Star disabled size={24} color="none" />            
+            <Text className="text-center text-white font-bold">
+              {user?.peringkat}
+            </Text>
+            <Star disabled size={24} color="none" />
           </View>
           <View className="flex flex-row justify-between items-center gap-5">
-            <View aria-disabled className="bg-none p-2 rounded-full">
+            {/* <View aria-disabled className="bg-none p-2 rounded-full">
               <PencilIcon disabled size={16} color="none" />
-            </View>
+            </View> */}
             <Text className="font-bold text-center">
               {user?.username ?? "Guest"}
             </Text>
-            <View className="bg-[#D92F2F] p-2 rounded-full">
+            {/* <View className="bg-[#D92F2F] p-2 rounded-full">
               <PencilIcon size={16} color="white" />
-            </View>
+            </View> */}
           </View>
           <View className="flex flex-col">
             <Text className="text-center text-sm text-gray-400">
@@ -71,7 +78,10 @@ export default function ProfileScreen() {
           <Text className="text-center text-lg font-bold">
             Anda harus login terlebih dahulu untuk melihat profil.
           </Text>
-          <Button className="mt-4 bg-blue-400" onPress={() => navigation.navigate("auth/login")}>
+          <Button
+            className="mt-4 bg-blue-400"
+            onPress={() => navigation.navigate("auth/login")}
+          >
             <Text className="font-bold text-white">Login</Text>
           </Button>
         </View>
@@ -88,15 +98,28 @@ export default function ProfileScreen() {
             <View className="flex flex-col gap-2 px-3 pt-2 pb-3">
               <Text className="text-left text-gray-400 font-medium min-w-full">
                 Kamu telah menyelamatkan{" "}
-                <Text className="font-bold text-red-700">{user?.impactTotal} makanan</Text>
+                <Text className="font-bold text-red-700">
+                  {user?.impactSaving} makanan
+                </Text>
               </Text>
               <Text className="text-left text-gray-400 font-medium min-w-full">
                 Kamu menghemat{" "}
-                <Text className="font-bold text-red-700">Rp{user?.impactSaving}</Text>
+                <Text className="font-bold text-red-700">
+                  Rp
+                  {user?.impactTotal
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                </Text>
               </Text>
               <Text className="text-left text-gray-400 font-medium min-w-full">
                 Kamu mengurangi{" "}
-                <Text className="font-bold text-red-700">{user?.impactReduce} kgCo</Text>
+                <Text className="font-bold text-red-700">
+                  {
+                    // 2 decimal places
+                    parseFloat(user?.impactReduce).toFixed(2)
+                  }{" "}
+                  kgCo
+                </Text>
               </Text>
             </View>
           </View>

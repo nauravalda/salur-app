@@ -8,6 +8,7 @@ import {
   addDoc,
   where,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -145,6 +146,18 @@ const makePurchase = async ({
 
   const foodDoc = await getDoc(doc(db, "fnb", foodId));
   const foodData = foodDoc.data();
+
+  // Update User Contribution
+  const userDocData = userDoc.data();
+  const impactSaving = userDocData.impactSaving + quantity;
+  const impactReduce = userDocData.impactReduce + Math.random() * 10;
+  const impactTotal = userDocData.impactTotal + total;
+
+  await updateDoc(userDoc.ref, {
+    impactSaving,
+    impactReduce,
+    impactTotal,
+  });
 
   return addDoc(collection(db, "order"), {
     user: userDoc.ref,

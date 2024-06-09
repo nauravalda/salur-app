@@ -113,9 +113,20 @@ export default function PurchasePage({
   }
 
   const originalPrice = price * finalQuantity;
-  const originalPriceGrand = originalPrice + 4000;
+  const deliveryFee =
+    orderMethod === "Gojek"
+      ? Math.floor(Math.random() * (8000 - 4000 + 1) * distance)
+      : orderMethod === "Grab"
+      ? Math.floor(Math.random() * (10000 - 5000 + 1) * distance)
+      : Math.floor(Math.random() * (6000 - 3000 + 1) * distance);
+  // {value === "Gojek"
+  //           ? `${distance * 4000} - ${distance * 8000}`
+  //           : value === "Grab"
+  //           ? `${distance * 5000} - ${distance * 10000}`
+  //           : `${distance * 3000} - ${distance * 6000}`}
+  const originalPriceGrand = originalPrice + deliveryFee;
   const subtotal = discountedPrice * finalQuantity;
-  const grandTotal = subtotal + 4000;
+  const grandTotal = subtotal + deliveryFee;
 
   async function handlePurchase({
     id,
@@ -138,7 +149,7 @@ export default function PurchasePage({
 
     // Call the purchase API here
     await makePurchase(data).then((doc) => {
-      console.log(doc);
+      // console.log(doc);
       handleNavigateToSuccess();
     });
   }
@@ -172,6 +183,7 @@ export default function PurchasePage({
                 </DialogHeader>
                 <Input
                   placeholder={address}
+                  value={address}
                   style={{
                     // width: "90%",
                     // borderWidth: 0,
@@ -183,6 +195,11 @@ export default function PurchasePage({
                   }}
                   onChangeText={onChangeAddress}
                 />
+                <DialogClose asChild>
+                  <Button className="rounded-full bg-[#D92F2F]">
+                    <Text className="text-white font-bold">Simpan</Text>
+                  </Button>
+                </DialogClose>
               </DialogContent>
             </Dialog>
           </View>
@@ -355,6 +372,11 @@ export default function PurchasePage({
                         // maxHeight: 25,
                       }}
                     />
+                    <DialogClose asChild>
+                      <Button className="rounded-full bg-[#D92F2F]">
+                        <Text className="text-white font-bold">Simpan</Text>
+                      </Button>
+                    </DialogClose>
                   </DialogContent>
                 </Dialog>
               </View>
@@ -413,7 +435,9 @@ export default function PurchasePage({
             <View className="flex flex-row justify-between items-center">
               <Text className="text-muted-foreground">Biaya Pengiriman</Text>
 
-              <Text className="text-muted-foreground">Rp4.000</Text>
+              <Text className="text-muted-foreground">
+                {deliveryFee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </Text>
             </View>
           </View>
         </View>
