@@ -109,7 +109,7 @@ type RootStackParamList = {
   "(product)/productdetails": {
     imageSource: { uri: string };
     title: string;
-    distance: string;
+    distance: number;
     price: number;
     discountedPrice: number;
     status: string;

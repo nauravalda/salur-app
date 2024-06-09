@@ -48,6 +48,7 @@ export default function PurchasePage({
       imageSource: { uri: string };
       id: string;
       title: string;
+      distance: number;
       price: number;
       discountedPrice: number;
       quantity: number;
@@ -55,7 +56,7 @@ export default function PurchasePage({
   };
 }) {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { imageSource, id, title, price, discountedPrice, quantity } =
+  const { imageSource, id, title, distance, price, discountedPrice, quantity } =
     route.params;
 
   const [payment, setPayment] = React.useState("OVO");
@@ -261,14 +262,17 @@ export default function PurchasePage({
                 >
                   <RadioGroupItemWithButton
                     value="Gojek"
+                    distance={distance}
                     onButtonPress={onButtonPress("Gojek")}
                   />
                   <RadioGroupItemWithButton
                     value="Grab"
+                    distance={distance}
                     onButtonPress={onButtonPress("Grab")}
                   />
                   <RadioGroupItemWithButton
                     value="Sicepat"
+                    distance={distance}
                     onButtonPress={onButtonPress("Sicepat")}
                   />
                 </RadioGroup>
@@ -473,9 +477,11 @@ function RadioGroupItemWithLabel({
 
 function RadioGroupItemWithButton({
   value,
+  distance,
   onButtonPress,
 }: {
   value: string;
+  distance: number;
   onButtonPress: () => void;
 }) {
   return (
@@ -488,7 +494,11 @@ function RadioGroupItemWithButton({
         <Text className="text-sm text-muted-foreground font-bold">{value}</Text>
 
         <Text className="text-sm text-muted-foreground font-bold">
-          12.000 - 26.000
+          {value === "Gojek"
+            ? `${distance * 4000} - ${distance * 8000}`
+            : value === "Grab"
+            ? `${distance * 5000} - ${distance * 10000}`
+            : `${distance * 3000} - ${distance * 6000}`}
         </Text>
       </View>
     </View>

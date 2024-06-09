@@ -17,7 +17,7 @@ type RootStackParamList = {
     imageSource: { uri: string };
     id: string;
     title: string;
-    distance: string;
+    distance: number;
     price: number;
     discountedPrice: number;
     status: string;
@@ -26,6 +26,7 @@ type RootStackParamList = {
     imageSource: { uri: string };
     id: string;
     title: string;
+    distance: number;
     price: number;
     discountedPrice: number;
     quantity: number;
@@ -45,6 +46,7 @@ export default function ProductDetailsScreen({
       imageSource: { uri: string };
       id: string;
       title: string;
+      distance: number;
       price: number;
       discountedPrice: number;
       status: string;
@@ -52,7 +54,7 @@ export default function ProductDetailsScreen({
   };
 }) {
   const navigation = useNavigation<ProductDetailsNavigationProp>();
-  const { imageSource, id, title, price, discountedPrice, status } =
+  const { imageSource, id, title, distance, price, discountedPrice, status } =
     route.params;
 
   const [quantity, setQuantity] = useState(1);
@@ -82,6 +84,7 @@ export default function ProductDetailsScreen({
     imageSource: { uri: string };
     id: string;
     title: string;
+    distance: number;
     price: number;
     discountedPrice: number;
     quantity: number;
@@ -125,9 +128,9 @@ export default function ProductDetailsScreen({
         </View>
       </View>
 
-      <Modal 
-        visible={showModal} 
-        animationType="slide" 
+      <Modal
+        visible={showModal}
+        animationType="slide"
         transparent
         onRequestClose={() => {
           setShowModal(!showModal);
@@ -172,6 +175,7 @@ export default function ProductDetailsScreen({
                   imageSource,
                   id,
                   title,
+                  distance,
                   price,
                   discountedPrice,
                   quantity,

@@ -110,7 +110,7 @@ type RootStackParamList = {
     imageSource: { uri: string };
     id: string;
     title: string;
-    distance: string;
+    distance: number;
     price: number;
     discountedPrice: number;
     status: string;
