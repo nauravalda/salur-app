@@ -27,6 +27,7 @@ import LoginScreen from "./auth/login";
 import RegisterScreen from "./auth/register";
 import AuthSuccessScreen from "./auth/successful";
 import PurchaseSuccessScreen from "./(purchase)/purchase-success";
+import AuthLogoutScreen from "./auth/logout";
 import MyOrderScreen from "./myorders";
 import { PortalHost } from "~/components/primitives/portal";
 import { getAuth, signOut } from "firebase/auth";
@@ -50,6 +51,7 @@ const Stack = createNativeStackNavigator();
 type RootStackParamList = {
   "auth/login": undefined;
   "auth/register": undefined;
+  "auth/logout": undefined;
   index: undefined;
 };
 
@@ -60,6 +62,32 @@ type LogoutStackParamList = NativeStackNavigationProp<
 
 export default function RootLayout() {
   const user = getAuth();
+  const RightHeader = () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (!user) {
+      return (
+        <Button
+          onPress={navigateToLogin}
+          variant="outline"
+          className="border-0"
+        >
+          <Text className="text-[#EF4444] font-semibold">Sign in</Text>
+        </Button>
+      );
+    }
+    else {
+      return (
+        <Button
+          onPress={handleLogout}
+          variant="outline"
+          className="border-0"
+        >
+          <LogOut size={24} color="#EF4444" />
+        </Button>
+      );
+    }
+  }
   const navigate = useNavigation<LogoutStackParamList>();
   function handleLogout() {
     signOut(getAuth()).then(() => {
@@ -67,7 +95,7 @@ export default function RootLayout() {
       navigate.reset({
         ...state,
       });
-      navigate.navigate("index");
+      navigate.navigate("auth/logout");
     });
   }
 
@@ -121,24 +149,25 @@ export default function RootLayout() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerRight: () =>
-              user ? (
-                <Button
-                  onPress={handleLogout}
-                  variant="outline"
-                  className="border-0"
-                >
-                  <LogOut size={24} color="#EF4444" />
-                </Button>
-              ) : (
-                <Button
-                  onPress={navigateToLogin}
-                  variant="outline"
-                  className="border-0"
-                >
-                  <Text className="text-[#EF4444] font-semibold">Sign in</Text>
-                </Button>
-              ),
+            headerRight: RightHeader,
+            // headerRight: () =>
+            //   user ? (
+            //     <Button
+            //       onPress={handleLogout}
+            //       variant="outline"
+            //       className="border-0"
+            //     >
+            //       <LogOut size={24} color="#EF4444" />
+            //     </Button>
+            //   ) : (
+            //     <Button
+            //       onPress={navigateToLogin}
+            //       variant="outline"
+            //       className="border-0"
+            //     >
+            //       <Text className="text-[#EF4444] font-semibold">Sign in</Text>
+            //     </Button>
+            //   ),
           }}
         />
         <Stack.Screen
@@ -161,6 +190,7 @@ export default function RootLayout() {
   }
 
   function RootTabs() {
+    const user = getAuth();
     return (
       <Tab.Navigator initialRouteName="index">
         <Tab.Screen
@@ -173,24 +203,25 @@ export default function RootLayout() {
             unmountOnBlur: true,
             tabBarLabel: "Home",
             headerShown: false,
-            headerRight: () =>
-              user ? (
-                <Button
-                  onPress={handleLogout}
-                  variant="outline"
-                  className="border-0"
-                >
-                  <LogOut size={24} color="#EF4444" />
-                </Button>
-              ) : (
-                <Button
-                  onPress={navigateToLogin}
-                  variant="outline"
-                  className="border-0"
-                >
-                  <Text className="text-[#EF4444] font-semibold">Sign in</Text>
-                </Button>
-              ),
+            headerRight: RightHeader,
+            // headerRight: () =>
+            //   user ? (
+            //     <Button
+            //       onPress={handleLogout}
+            //       variant="outline"
+            //       className="border-0"
+            //     >
+            //       <LogOut size={24} color="#EF4444" />
+            //     </Button>
+            //   ) : (
+            //     <Button
+            //       onPress={navigateToLogin}
+            //       variant="outline"
+            //       className="border-0"
+            //     >
+            //       <Text className="text-[#EF4444] font-semibold">Sign in</Text>
+            //     </Button>
+            //   ),
           }}
         />
         {user && (
@@ -204,26 +235,27 @@ export default function RootLayout() {
               tabBarLabel: "Kulkasku",
               headerTitle: "Kulkasku",
               unmountOnBlur: true,
-              headerRight: () =>
-                user ? (
-                  <Button
-                    onPress={handleLogout}
-                    variant="outline"
-                    className="border-0"
-                  >
-                    <LogOut size={24} color="#EF4444" />
-                  </Button>
-                ) : (
-                  <Button
-                    onPress={navigateToLogin}
-                    variant="outline"
-                    className="border-0"
-                  >
-                    <Text className="text-[#EF4444] font-semibold">
-                      Sign in
-                    </Text>
-                  </Button>
-                ),
+              headerRight: RightHeader,
+              // headerRight: () =>
+              //   user ? (
+              //     <Button
+              //       onPress={handleLogout}
+              //       variant="outline"
+              //       className="border-0"
+              //     >
+              //       <LogOut size={24} color="#EF4444" />
+              //     </Button>
+              //   ) : (
+              //     <Button
+              //       onPress={navigateToLogin}
+              //       variant="outline"
+              //       className="border-0"
+              //     >
+              //       <Text className="text-[#EF4444] font-semibold">
+              //         Sign in
+              //       </Text>
+              //     </Button>
+              //   ),
               // headerShown: false,
             }}
           />
@@ -239,26 +271,27 @@ export default function RootLayout() {
               tabBarLabel: "Pesanan Saya",
               headerTitle: "Pesanan Saya",
               unmountOnBlur: true,
-              headerRight: () =>
-                user ? (
-                  <Button
-                    onPress={handleLogout}
-                    variant="outline"
-                    className="border-0"
-                  >
-                    <LogOut size={24} color="#EF4444" />
-                  </Button>
-                ) : (
-                  <Button
-                    onPress={navigateToLogin}
-                    variant="outline"
-                    className="border-0"
-                  >
-                    <Text className="text-[#EF4444] font-semibold">
-                      Sign in
-                    </Text>
-                  </Button>
-                ),
+              headerRight: RightHeader,
+              // headerRight: () =>
+              //   user ? (
+              //     <Button
+              //       onPress={handleLogout}
+              //       variant="outline"
+              //       className="border-0"
+              //     >
+              //       <LogOut size={24} color="#EF4444" />
+              //     </Button>
+              //   ) : (
+              //     <Button
+              //       onPress={navigateToLogin}
+              //       variant="outline"
+              //       className="border-0"
+              //     >
+              //       <Text className="text-[#EF4444] font-semibold">
+              //         Sign in
+              //       </Text>
+              //     </Button>
+              //   ),
               // headerShown: false,
             }}
           />
@@ -273,24 +306,25 @@ export default function RootLayout() {
             tabBarLabel: "Profile",
             unmountOnBlur: true,
             headerTitle: "Profile",
-            headerRight: () =>
-              user ? (
-                <Button
-                  onPress={handleLogout}
-                  variant="outline"
-                  className="border-0"
-                >
-                  <LogOut size={24} color="#EF4444" />
-                </Button>
-              ) : (
-                <Button
-                  onPress={navigateToLogin}
-                  variant="outline"
-                  className="border-0"
-                >
-                  <Text className="text-[#EF4444] font-semibold">Sign in</Text>
-                </Button>
-              ),
+            headerRight: RightHeader,
+            // headerRight: () =>
+            //   user ? (
+            //     <Button
+            //       onPress={handleLogout}
+            //       variant="outline"
+            //       className="border-0"
+            //     >
+            //       <LogOut size={24} color="#EF4444" />
+            //     </Button>
+            //   ) : (
+            //     <Button
+            //       onPress={navigateToLogin}
+            //       variant="outline"
+            //       className="border-0"
+            //     >
+            //       <Text className="text-[#EF4444] font-semibold">Sign in</Text>
+            //     </Button>
+            //   ),
             // headerShown: false,
           }}
         />
@@ -356,6 +390,13 @@ export default function RootLayout() {
         <Stack.Screen
           name="auth/successful"
           component={AuthSuccessScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="auth/logout"
+          component={AuthLogoutScreen}
           options={{
             headerShown: false,
           }}

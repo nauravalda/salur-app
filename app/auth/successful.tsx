@@ -4,8 +4,25 @@ import { Image, Platform, ScrollView, TextInput, View } from "react-native";
 import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  profile: undefined;
+  "auth/successful": undefined;
+};
+
+type AuthSuccessScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "auth/successful"
+>;
 
 export default function AuthSuccessScreen() {
+  const navigation = useNavigation<AuthSuccessScreenNavigationProp>();
+  const handleReturnHome = () => {
+    navigation.navigate("profile");
+  };
+
   return (
     <ScrollView contentContainerClassName="flex-1 justify-center items-center">
       {/* Login Successful */}
@@ -18,10 +35,13 @@ export default function AuthSuccessScreen() {
           <Text className="text-center font-bold text-2xl">
             Login Successful!
           </Text>
-          <Button className="bg-red-600">
-            <Link href="/">
+          <Button 
+            className="bg-red-600"
+            onPress={handleReturnHome}  
+          >
+            {/* <Link href="/"> */}
               <Text className="font-bold">Ke Halaman Utama</Text>
-            </Link>
+            {/* </Link> */}
           </Button>
         </View>
         <View className="flex h-1/2 bg-red-600 px-12 gap-2">

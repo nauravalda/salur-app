@@ -17,7 +17,7 @@ type RootStackParamList = {
   "auth/login": undefined;
   "auth/register": undefined;
   "auth/successful": undefined;
-  "index": undefined;
+  "profile": undefined;
 };
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<
@@ -70,7 +70,7 @@ export default function LoginScreen() {
 
     loginUser(username, password)
       .then(() => {
-        alert("Login successful!");
+        // alert("Login successful!");
         navigation.navigate("auth/successful");
       })
       .catch((error) => {
@@ -97,7 +97,7 @@ export default function LoginScreen() {
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        navigation.navigate("index");
+        navigation.navigate("profile");
         return true;
       };
 
