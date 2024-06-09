@@ -156,26 +156,44 @@ const makePurchase = async ({
     paymentMethod,
     total,
     quantity,
-    fnb: foodDoc.ref,
+    fnb: foodData,
   });
 };
 
 const getAllOrder = async (userId: any) => {
-  const orderQuery = await query(
-    collection(db, "order"),
-    where("user", "==", userId)
-  );
+  // User Reference Field: users/tkanZiVCJ8eQs7mGG6Pv
+  // Food Referemce Field: fnb/1
 
-  const orderRef = await getDocs(orderQuery).then((querySnapshot) => {
-    return querySnapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-      };
-    });
+  const userQuery = query(collection(db, "users"), where("uid", "==", userId));
+
+  const userDoc = await getDocs(userQuery).then((querySnapshot) => {
+    return querySnapshot.docs[0];
   });
 
-  return orderRef;
+  const orderQuery = query(
+    collection(db, "order"),
+    where("user", "==", userDoc.ref)
+  );
+
+  const orderData: any = [];
+  const querySnapshot = await getDocs(orderQuery);
+  querySnapshot.forEach((doc) => {
+    const id = doc.id;
+    // const foodData = await getDoc(doc.data().fnb).then((doc) => doc.data());
+
+    const data: any = {
+      id,
+      ...doc.data(),
+    };
+
+    orderData.push(data);
+  });
+
+  // Change the food reference field to food data
+
+  // console.log(orderData);
+  // return food data
+  return orderData;
 };
 
 export {
